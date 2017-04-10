@@ -1,4 +1,6 @@
 libc.so.6
+libexif.so.12
+libgd.so.3
 libjpeg.so.62
 libltdl.so.7
 libm.so.6

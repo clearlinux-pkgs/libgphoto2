@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.13
-Release  : 1
+Release  : 2
 URL      : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2
 Source0  : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2
 Source99 : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2.asc
@@ -20,6 +20,8 @@ Requires: libgphoto2-data
 Requires: libgphoto2-locales
 BuildRequires : bison
 BuildRequires : flex
+BuildRequires : libexif-dev
+BuildRequires : libgd-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libusb-dev
 BuildRequires : libxml2-dev
@@ -97,7 +99,7 @@ locales components for the libgphoto2 package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491841576
+export SOURCE_DATE_EPOCH=1491841964
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -109,7 +111,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491841576
+export SOURCE_DATE_EPOCH=1491841964
 rm -rf %{buildroot}
 %make_install
 %find_lang libgphoto2-6
