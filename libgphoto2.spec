@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.13
-Release  : 2
+Release  : 3
 URL      : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2
 Source0  : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2
 Source99 : https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.13/libgphoto2-2.5.13.tar.bz2.asc
