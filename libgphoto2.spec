@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.16
-Release  : 4
+Release  : 5
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2
 Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2.asc
