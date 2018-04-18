@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.16
-Release  : 5
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2
-Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.16/libgphoto2-2.5.16.tar.bz2.asc
+Version  : 2.5.17
+Release  : 6
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
+Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2.asc
 Summary  : Software for accessing digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
@@ -25,6 +25,7 @@ BuildRequires : libgd-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libusb-dev
 BuildRequires : libxml2-dev
+BuildRequires : qtbase-dev
 
 %description
 The gPhoto2 project is a universal, free application and library
@@ -95,16 +96,20 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.16
+%setup -q -n libgphoto2-2.5.17
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1509321686
+export SOURCE_DATE_EPOCH=1524059654
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -114,7 +119,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1509321686
+export SOURCE_DATE_EPOCH=1524059654
 rm -rf %{buildroot}
 %make_install
 %find_lang libgphoto2-6
@@ -132,20 +137,16 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/doc/libgphoto2_port/AUTHORS
-/usr/share/doc/libgphoto2_port/NEWS
-/usr/share/doc/libgphoto2_port/README
-/usr/share/libgphoto2/2.5.16/konica/english
-/usr/share/libgphoto2/2.5.16/konica/french
-/usr/share/libgphoto2/2.5.16/konica/german
-/usr/share/libgphoto2/2.5.16/konica/japanese
-/usr/share/libgphoto2/2.5.16/konica/korean
-/usr/share/libgphoto2/2.5.16/konica/spanish
+/usr/share/libgphoto2/2.5.17/konica/english
+/usr/share/libgphoto2/2.5.17/konica/french
+/usr/share/libgphoto2/2.5.17/konica/german
+/usr/share/libgphoto2/2.5.17/konica/japanese
+/usr/share/libgphoto2/2.5.17/konica/korean
+/usr/share/libgphoto2/2.5.17/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/gphoto2/gphoto2
 /usr/include/gphoto2/gphoto2-abilities-list.h
 /usr/include/gphoto2/gphoto2-camera.h
 /usr/include/gphoto2/gphoto2-context.h
@@ -173,75 +174,78 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc /usr/share/doc/libgphoto2/*
 %doc /usr/share/man/man3/*
+/usr/share/doc/libgphoto2_port/AUTHORS
+/usr/share/doc/libgphoto2_port/NEWS
+/usr/share/doc/libgphoto2_port/README
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
-/usr/lib64/libgphoto2.so.6.0.0
-/usr/lib64/libgphoto2/2.5.16/adc65.so
-/usr/lib64/libgphoto2/2.5.16/agfa_cl20.so
-/usr/lib64/libgphoto2/2.5.16/aox.so
-/usr/lib64/libgphoto2/2.5.16/ax203.so
-/usr/lib64/libgphoto2/2.5.16/barbie.so
-/usr/lib64/libgphoto2/2.5.16/canon.so
-/usr/lib64/libgphoto2/2.5.16/casio_qv.so
-/usr/lib64/libgphoto2/2.5.16/clicksmart310.so
-/usr/lib64/libgphoto2/2.5.16/digigr8.so
-/usr/lib64/libgphoto2/2.5.16/digita.so
-/usr/lib64/libgphoto2/2.5.16/dimagev.so
-/usr/lib64/libgphoto2/2.5.16/dimera3500.so
-/usr/lib64/libgphoto2/2.5.16/directory.so
-/usr/lib64/libgphoto2/2.5.16/enigma13.so
-/usr/lib64/libgphoto2/2.5.16/fuji.so
-/usr/lib64/libgphoto2/2.5.16/gsmart300.so
-/usr/lib64/libgphoto2/2.5.16/hp215.so
-/usr/lib64/libgphoto2/2.5.16/iclick.so
-/usr/lib64/libgphoto2/2.5.16/jamcam.so
-/usr/lib64/libgphoto2/2.5.16/jd11.so
-/usr/lib64/libgphoto2/2.5.16/jl2005a.so
-/usr/lib64/libgphoto2/2.5.16/jl2005c.so
-/usr/lib64/libgphoto2/2.5.16/kodak_dc120.so
-/usr/lib64/libgphoto2/2.5.16/kodak_dc210.so
-/usr/lib64/libgphoto2/2.5.16/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.16/kodak_dc3200.so
-/usr/lib64/libgphoto2/2.5.16/kodak_ez200.so
-/usr/lib64/libgphoto2/2.5.16/konica.so
-/usr/lib64/libgphoto2/2.5.16/konica_qm150.so
-/usr/lib64/libgphoto2/2.5.16/largan.so
-/usr/lib64/libgphoto2/2.5.16/lg_gsm.so
-/usr/lib64/libgphoto2/2.5.16/mars.so
-/usr/lib64/libgphoto2/2.5.16/mustek.so
-/usr/lib64/libgphoto2/2.5.16/panasonic_coolshot.so
-/usr/lib64/libgphoto2/2.5.16/panasonic_dc1000.so
-/usr/lib64/libgphoto2/2.5.16/panasonic_dc1580.so
-/usr/lib64/libgphoto2/2.5.16/panasonic_l859.so
-/usr/lib64/libgphoto2/2.5.16/pccam300.so
-/usr/lib64/libgphoto2/2.5.16/pccam600.so
-/usr/lib64/libgphoto2/2.5.16/pentax.so
-/usr/lib64/libgphoto2/2.5.16/polaroid_pdc320.so
-/usr/lib64/libgphoto2/2.5.16/polaroid_pdc640.so
-/usr/lib64/libgphoto2/2.5.16/polaroid_pdc700.so
-/usr/lib64/libgphoto2/2.5.16/ptp2.so
-/usr/lib64/libgphoto2/2.5.16/ricoh.so
-/usr/lib64/libgphoto2/2.5.16/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.16/samsung.so
-/usr/lib64/libgphoto2/2.5.16/sierra.so
-/usr/lib64/libgphoto2/2.5.16/sipix_blink2.so
-/usr/lib64/libgphoto2/2.5.16/sipix_web2.so
-/usr/lib64/libgphoto2/2.5.16/smal.so
-/usr/lib64/libgphoto2/2.5.16/sonix.so
-/usr/lib64/libgphoto2/2.5.16/sony_dscf1.so
-/usr/lib64/libgphoto2/2.5.16/sony_dscf55.so
-/usr/lib64/libgphoto2/2.5.16/soundvision.so
-/usr/lib64/libgphoto2/2.5.16/spca50x.so
-/usr/lib64/libgphoto2/2.5.16/sq905.so
-/usr/lib64/libgphoto2/2.5.16/st2205.so
-/usr/lib64/libgphoto2/2.5.16/stv0674.so
-/usr/lib64/libgphoto2/2.5.16/stv0680.so
-/usr/lib64/libgphoto2/2.5.16/sx330z.so
-/usr/lib64/libgphoto2/2.5.16/topfield.so
-/usr/lib64/libgphoto2/2.5.16/toshiba_pdrm11.so
-/usr/lib64/libgphoto2/2.5.16/tp6801.so
+/usr/lib64/libgphoto2.so.6.1.0
+/usr/lib64/libgphoto2/2.5.17/adc65.so
+/usr/lib64/libgphoto2/2.5.17/agfa_cl20.so
+/usr/lib64/libgphoto2/2.5.17/aox.so
+/usr/lib64/libgphoto2/2.5.17/ax203.so
+/usr/lib64/libgphoto2/2.5.17/barbie.so
+/usr/lib64/libgphoto2/2.5.17/canon.so
+/usr/lib64/libgphoto2/2.5.17/casio_qv.so
+/usr/lib64/libgphoto2/2.5.17/clicksmart310.so
+/usr/lib64/libgphoto2/2.5.17/digigr8.so
+/usr/lib64/libgphoto2/2.5.17/digita.so
+/usr/lib64/libgphoto2/2.5.17/dimagev.so
+/usr/lib64/libgphoto2/2.5.17/dimera3500.so
+/usr/lib64/libgphoto2/2.5.17/directory.so
+/usr/lib64/libgphoto2/2.5.17/enigma13.so
+/usr/lib64/libgphoto2/2.5.17/fuji.so
+/usr/lib64/libgphoto2/2.5.17/gsmart300.so
+/usr/lib64/libgphoto2/2.5.17/hp215.so
+/usr/lib64/libgphoto2/2.5.17/iclick.so
+/usr/lib64/libgphoto2/2.5.17/jamcam.so
+/usr/lib64/libgphoto2/2.5.17/jd11.so
+/usr/lib64/libgphoto2/2.5.17/jl2005a.so
+/usr/lib64/libgphoto2/2.5.17/jl2005c.so
+/usr/lib64/libgphoto2/2.5.17/kodak_dc120.so
+/usr/lib64/libgphoto2/2.5.17/kodak_dc210.so
+/usr/lib64/libgphoto2/2.5.17/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.17/kodak_dc3200.so
+/usr/lib64/libgphoto2/2.5.17/kodak_ez200.so
+/usr/lib64/libgphoto2/2.5.17/konica.so
+/usr/lib64/libgphoto2/2.5.17/konica_qm150.so
+/usr/lib64/libgphoto2/2.5.17/largan.so
+/usr/lib64/libgphoto2/2.5.17/lg_gsm.so
+/usr/lib64/libgphoto2/2.5.17/mars.so
+/usr/lib64/libgphoto2/2.5.17/mustek.so
+/usr/lib64/libgphoto2/2.5.17/panasonic_coolshot.so
+/usr/lib64/libgphoto2/2.5.17/panasonic_dc1000.so
+/usr/lib64/libgphoto2/2.5.17/panasonic_dc1580.so
+/usr/lib64/libgphoto2/2.5.17/panasonic_l859.so
+/usr/lib64/libgphoto2/2.5.17/pccam300.so
+/usr/lib64/libgphoto2/2.5.17/pccam600.so
+/usr/lib64/libgphoto2/2.5.17/pentax.so
+/usr/lib64/libgphoto2/2.5.17/polaroid_pdc320.so
+/usr/lib64/libgphoto2/2.5.17/polaroid_pdc640.so
+/usr/lib64/libgphoto2/2.5.17/polaroid_pdc700.so
+/usr/lib64/libgphoto2/2.5.17/ptp2.so
+/usr/lib64/libgphoto2/2.5.17/ricoh.so
+/usr/lib64/libgphoto2/2.5.17/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.17/samsung.so
+/usr/lib64/libgphoto2/2.5.17/sierra.so
+/usr/lib64/libgphoto2/2.5.17/sipix_blink2.so
+/usr/lib64/libgphoto2/2.5.17/sipix_web2.so
+/usr/lib64/libgphoto2/2.5.17/smal.so
+/usr/lib64/libgphoto2/2.5.17/sonix.so
+/usr/lib64/libgphoto2/2.5.17/sony_dscf1.so
+/usr/lib64/libgphoto2/2.5.17/sony_dscf55.so
+/usr/lib64/libgphoto2/2.5.17/soundvision.so
+/usr/lib64/libgphoto2/2.5.17/spca50x.so
+/usr/lib64/libgphoto2/2.5.17/sq905.so
+/usr/lib64/libgphoto2/2.5.17/st2205.so
+/usr/lib64/libgphoto2/2.5.17/stv0674.so
+/usr/lib64/libgphoto2/2.5.17/stv0680.so
+/usr/lib64/libgphoto2/2.5.17/sx330z.so
+/usr/lib64/libgphoto2/2.5.17/topfield.so
+/usr/lib64/libgphoto2/2.5.17/toshiba_pdrm11.so
+/usr/lib64/libgphoto2/2.5.17/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
