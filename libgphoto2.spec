@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.17
-Release  : 6
+Release  : 7
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
 Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2.asc
@@ -103,7 +103,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1524059654
+export SOURCE_DATE_EPOCH=1524061250
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -119,7 +119,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1524059654
+export SOURCE_DATE_EPOCH=1524061250
 rm -rf %{buildroot}
 %make_install
 %find_lang libgphoto2-6
