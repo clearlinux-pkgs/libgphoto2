@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.17
-Release  : 8
+Release  : 9
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
 Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2.asc
