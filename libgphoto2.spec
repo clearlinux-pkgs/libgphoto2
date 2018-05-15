@@ -5,19 +5,20 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.17
-Release  : 9
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2
-Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.17/libgphoto2-2.5.17.tar.bz2.asc
+Version  : 2.5.18
+Release  : 10
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.18/libgphoto2-2.5.18.tar.bz2
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.18/libgphoto2-2.5.18.tar.bz2
+Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.18/libgphoto2-2.5.18.tar.bz2.asc
 Summary  : Software for accessing digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
 Requires: libgphoto2-bin
 Requires: libgphoto2-lib
-Requires: libgphoto2-doc
+Requires: libgphoto2-license
 Requires: libgphoto2-data
 Requires: libgphoto2-locales
+Requires: libgphoto2-man
 BuildRequires : bison
 BuildRequires : flex
 BuildRequires : libexif-dev
@@ -45,6 +46,8 @@ frontends are available seperately.
 Summary: bin components for the libgphoto2 package.
 Group: Binaries
 Requires: libgphoto2-data
+Requires: libgphoto2-license
+Requires: libgphoto2-man
 
 %description bin
 bin components for the libgphoto2 package.
@@ -73,6 +76,7 @@ dev components for the libgphoto2 package.
 %package doc
 Summary: doc components for the libgphoto2 package.
 Group: Documentation
+Requires: libgphoto2-man
 
 %description doc
 doc components for the libgphoto2 package.
@@ -82,9 +86,18 @@ doc components for the libgphoto2 package.
 Summary: lib components for the libgphoto2 package.
 Group: Libraries
 Requires: libgphoto2-data
+Requires: libgphoto2-license
 
 %description lib
 lib components for the libgphoto2 package.
+
+
+%package license
+Summary: license components for the libgphoto2 package.
+Group: Default
+
+%description license
+license components for the libgphoto2 package.
 
 
 %package locales
@@ -95,15 +108,23 @@ Group: Default
 locales components for the libgphoto2 package.
 
 
+%package man
+Summary: man components for the libgphoto2 package.
+Group: Default
+
+%description man
+man components for the libgphoto2 package.
+
+
 %prep
-%setup -q -n libgphoto2-2.5.17
+%setup -q -n libgphoto2-2.5.18
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1524061624
+export SOURCE_DATE_EPOCH=1526352747
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -119,7 +140,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1524061624
+export SOURCE_DATE_EPOCH=1526352747
 rm -rf %{buildroot}
 %make_install
 %find_lang libgphoto2-6
@@ -137,12 +158,12 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.17/konica/english
-/usr/share/libgphoto2/2.5.17/konica/french
-/usr/share/libgphoto2/2.5.17/konica/german
-/usr/share/libgphoto2/2.5.17/konica/japanese
-/usr/share/libgphoto2/2.5.17/konica/korean
-/usr/share/libgphoto2/2.5.17/konica/spanish
+/usr/share/libgphoto2/2.5.18/konica/english
+/usr/share/libgphoto2/2.5.18/konica/french
+/usr/share/libgphoto2/2.5.18/konica/german
+/usr/share/libgphoto2/2.5.18/konica/japanese
+/usr/share/libgphoto2/2.5.18/konica/korean
+/usr/share/libgphoto2/2.5.18/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
@@ -174,7 +195,6 @@ rm -rf %{buildroot}
 %files doc
 %defattr(-,root,root,-)
 %doc /usr/share/doc/libgphoto2/*
-%doc /usr/share/man/man3/*
 /usr/share/doc/libgphoto2_port/AUTHORS
 /usr/share/doc/libgphoto2_port/NEWS
 /usr/share/doc/libgphoto2_port/README
@@ -183,70 +203,70 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.1.0
-/usr/lib64/libgphoto2/2.5.17/adc65.so
-/usr/lib64/libgphoto2/2.5.17/agfa_cl20.so
-/usr/lib64/libgphoto2/2.5.17/aox.so
-/usr/lib64/libgphoto2/2.5.17/ax203.so
-/usr/lib64/libgphoto2/2.5.17/barbie.so
-/usr/lib64/libgphoto2/2.5.17/canon.so
-/usr/lib64/libgphoto2/2.5.17/casio_qv.so
-/usr/lib64/libgphoto2/2.5.17/clicksmart310.so
-/usr/lib64/libgphoto2/2.5.17/digigr8.so
-/usr/lib64/libgphoto2/2.5.17/digita.so
-/usr/lib64/libgphoto2/2.5.17/dimagev.so
-/usr/lib64/libgphoto2/2.5.17/dimera3500.so
-/usr/lib64/libgphoto2/2.5.17/directory.so
-/usr/lib64/libgphoto2/2.5.17/enigma13.so
-/usr/lib64/libgphoto2/2.5.17/fuji.so
-/usr/lib64/libgphoto2/2.5.17/gsmart300.so
-/usr/lib64/libgphoto2/2.5.17/hp215.so
-/usr/lib64/libgphoto2/2.5.17/iclick.so
-/usr/lib64/libgphoto2/2.5.17/jamcam.so
-/usr/lib64/libgphoto2/2.5.17/jd11.so
-/usr/lib64/libgphoto2/2.5.17/jl2005a.so
-/usr/lib64/libgphoto2/2.5.17/jl2005c.so
-/usr/lib64/libgphoto2/2.5.17/kodak_dc120.so
-/usr/lib64/libgphoto2/2.5.17/kodak_dc210.so
-/usr/lib64/libgphoto2/2.5.17/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.17/kodak_dc3200.so
-/usr/lib64/libgphoto2/2.5.17/kodak_ez200.so
-/usr/lib64/libgphoto2/2.5.17/konica.so
-/usr/lib64/libgphoto2/2.5.17/konica_qm150.so
-/usr/lib64/libgphoto2/2.5.17/largan.so
-/usr/lib64/libgphoto2/2.5.17/lg_gsm.so
-/usr/lib64/libgphoto2/2.5.17/mars.so
-/usr/lib64/libgphoto2/2.5.17/mustek.so
-/usr/lib64/libgphoto2/2.5.17/panasonic_coolshot.so
-/usr/lib64/libgphoto2/2.5.17/panasonic_dc1000.so
-/usr/lib64/libgphoto2/2.5.17/panasonic_dc1580.so
-/usr/lib64/libgphoto2/2.5.17/panasonic_l859.so
-/usr/lib64/libgphoto2/2.5.17/pccam300.so
-/usr/lib64/libgphoto2/2.5.17/pccam600.so
-/usr/lib64/libgphoto2/2.5.17/pentax.so
-/usr/lib64/libgphoto2/2.5.17/polaroid_pdc320.so
-/usr/lib64/libgphoto2/2.5.17/polaroid_pdc640.so
-/usr/lib64/libgphoto2/2.5.17/polaroid_pdc700.so
-/usr/lib64/libgphoto2/2.5.17/ptp2.so
-/usr/lib64/libgphoto2/2.5.17/ricoh.so
-/usr/lib64/libgphoto2/2.5.17/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.17/samsung.so
-/usr/lib64/libgphoto2/2.5.17/sierra.so
-/usr/lib64/libgphoto2/2.5.17/sipix_blink2.so
-/usr/lib64/libgphoto2/2.5.17/sipix_web2.so
-/usr/lib64/libgphoto2/2.5.17/smal.so
-/usr/lib64/libgphoto2/2.5.17/sonix.so
-/usr/lib64/libgphoto2/2.5.17/sony_dscf1.so
-/usr/lib64/libgphoto2/2.5.17/sony_dscf55.so
-/usr/lib64/libgphoto2/2.5.17/soundvision.so
-/usr/lib64/libgphoto2/2.5.17/spca50x.so
-/usr/lib64/libgphoto2/2.5.17/sq905.so
-/usr/lib64/libgphoto2/2.5.17/st2205.so
-/usr/lib64/libgphoto2/2.5.17/stv0674.so
-/usr/lib64/libgphoto2/2.5.17/stv0680.so
-/usr/lib64/libgphoto2/2.5.17/sx330z.so
-/usr/lib64/libgphoto2/2.5.17/topfield.so
-/usr/lib64/libgphoto2/2.5.17/toshiba_pdrm11.so
-/usr/lib64/libgphoto2/2.5.17/tp6801.so
+/usr/lib64/libgphoto2/2.5.18/adc65.so
+/usr/lib64/libgphoto2/2.5.18/agfa_cl20.so
+/usr/lib64/libgphoto2/2.5.18/aox.so
+/usr/lib64/libgphoto2/2.5.18/ax203.so
+/usr/lib64/libgphoto2/2.5.18/barbie.so
+/usr/lib64/libgphoto2/2.5.18/canon.so
+/usr/lib64/libgphoto2/2.5.18/casio_qv.so
+/usr/lib64/libgphoto2/2.5.18/clicksmart310.so
+/usr/lib64/libgphoto2/2.5.18/digigr8.so
+/usr/lib64/libgphoto2/2.5.18/digita.so
+/usr/lib64/libgphoto2/2.5.18/dimagev.so
+/usr/lib64/libgphoto2/2.5.18/dimera3500.so
+/usr/lib64/libgphoto2/2.5.18/directory.so
+/usr/lib64/libgphoto2/2.5.18/enigma13.so
+/usr/lib64/libgphoto2/2.5.18/fuji.so
+/usr/lib64/libgphoto2/2.5.18/gsmart300.so
+/usr/lib64/libgphoto2/2.5.18/hp215.so
+/usr/lib64/libgphoto2/2.5.18/iclick.so
+/usr/lib64/libgphoto2/2.5.18/jamcam.so
+/usr/lib64/libgphoto2/2.5.18/jd11.so
+/usr/lib64/libgphoto2/2.5.18/jl2005a.so
+/usr/lib64/libgphoto2/2.5.18/jl2005c.so
+/usr/lib64/libgphoto2/2.5.18/kodak_dc120.so
+/usr/lib64/libgphoto2/2.5.18/kodak_dc210.so
+/usr/lib64/libgphoto2/2.5.18/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.18/kodak_dc3200.so
+/usr/lib64/libgphoto2/2.5.18/kodak_ez200.so
+/usr/lib64/libgphoto2/2.5.18/konica.so
+/usr/lib64/libgphoto2/2.5.18/konica_qm150.so
+/usr/lib64/libgphoto2/2.5.18/largan.so
+/usr/lib64/libgphoto2/2.5.18/lg_gsm.so
+/usr/lib64/libgphoto2/2.5.18/mars.so
+/usr/lib64/libgphoto2/2.5.18/mustek.so
+/usr/lib64/libgphoto2/2.5.18/panasonic_coolshot.so
+/usr/lib64/libgphoto2/2.5.18/panasonic_dc1000.so
+/usr/lib64/libgphoto2/2.5.18/panasonic_dc1580.so
+/usr/lib64/libgphoto2/2.5.18/panasonic_l859.so
+/usr/lib64/libgphoto2/2.5.18/pccam300.so
+/usr/lib64/libgphoto2/2.5.18/pccam600.so
+/usr/lib64/libgphoto2/2.5.18/pentax.so
+/usr/lib64/libgphoto2/2.5.18/polaroid_pdc320.so
+/usr/lib64/libgphoto2/2.5.18/polaroid_pdc640.so
+/usr/lib64/libgphoto2/2.5.18/polaroid_pdc700.so
+/usr/lib64/libgphoto2/2.5.18/ptp2.so
+/usr/lib64/libgphoto2/2.5.18/ricoh.so
+/usr/lib64/libgphoto2/2.5.18/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.18/samsung.so
+/usr/lib64/libgphoto2/2.5.18/sierra.so
+/usr/lib64/libgphoto2/2.5.18/sipix_blink2.so
+/usr/lib64/libgphoto2/2.5.18/sipix_web2.so
+/usr/lib64/libgphoto2/2.5.18/smal.so
+/usr/lib64/libgphoto2/2.5.18/sonix.so
+/usr/lib64/libgphoto2/2.5.18/sony_dscf1.so
+/usr/lib64/libgphoto2/2.5.18/sony_dscf55.so
+/usr/lib64/libgphoto2/2.5.18/soundvision.so
+/usr/lib64/libgphoto2/2.5.18/spca50x.so
+/usr/lib64/libgphoto2/2.5.18/sq905.so
+/usr/lib64/libgphoto2/2.5.18/st2205.so
+/usr/lib64/libgphoto2/2.5.18/stv0674.so
+/usr/lib64/libgphoto2/2.5.18/stv0680.so
+/usr/lib64/libgphoto2/2.5.18/sx330z.so
+/usr/lib64/libgphoto2/2.5.18/topfield.so
+/usr/lib64/libgphoto2/2.5.18/toshiba_pdrm11.so
+/usr/lib64/libgphoto2/2.5.18/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
@@ -255,6 +275,15 @@ rm -rf %{buildroot}
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/libgphoto2/COPYING
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man3/libgphoto2.3
+/usr/share/man/man3/libgphoto2_port.3
 
 %files locales -f libgphoto2-6.lang -f libgphoto2_port-12.lang
 %defattr(-,root,root,-)
