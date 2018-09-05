@@ -1,0 +1,6 @@
+pushd %{buildroot}/usr/lib64/libgphoto2/2.5.19/haswell
+for i in *.so; do mv $i ../$i.avx2 ; done
+popd
+pushd %{buildroot}/usr/lib64/libgphoto2_port/0.12.0/haswell/
+for i in *.so; do mv $i ../$i.avx2 ; done
+popd

@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.19
-Release  : 12
+Release  : 14
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2
 Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2.asc
@@ -116,7 +116,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536134084
+export SOURCE_DATE_EPOCH=1536138714
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -140,7 +140,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536134084
+export SOURCE_DATE_EPOCH=1536138714
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/libgphoto2
 cp COPYING %{buildroot}/usr/share/doc/libgphoto2/COPYING
@@ -154,6 +154,14 @@ popd
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
+## install_append content
+pushd %{buildroot}/usr/lib64/libgphoto2/2.5.19/haswell
+for i in *.so; do mv $i ../$i.avx2 ; done
+popd
+pushd %{buildroot}/usr/lib64/libgphoto2_port/0.12.0/haswell/
+for i in *.so; do mv $i ../$i.avx2 ; done
+popd
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -218,145 +226,111 @@ popd
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.1.0
 /usr/lib64/libgphoto2/2.5.19/adc65.so
+/usr/lib64/libgphoto2/2.5.19/adc65.so.avx2
 /usr/lib64/libgphoto2/2.5.19/agfa_cl20.so
+/usr/lib64/libgphoto2/2.5.19/agfa_cl20.so.avx2
 /usr/lib64/libgphoto2/2.5.19/aox.so
+/usr/lib64/libgphoto2/2.5.19/aox.so.avx2
 /usr/lib64/libgphoto2/2.5.19/ax203.so
+/usr/lib64/libgphoto2/2.5.19/ax203.so.avx2
 /usr/lib64/libgphoto2/2.5.19/barbie.so
 /usr/lib64/libgphoto2/2.5.19/canon.so
 /usr/lib64/libgphoto2/2.5.19/casio_qv.so
+/usr/lib64/libgphoto2/2.5.19/casio_qv.so.avx2
 /usr/lib64/libgphoto2/2.5.19/clicksmart310.so
 /usr/lib64/libgphoto2/2.5.19/digigr8.so
+/usr/lib64/libgphoto2/2.5.19/digigr8.so.avx2
 /usr/lib64/libgphoto2/2.5.19/digita.so
+/usr/lib64/libgphoto2/2.5.19/digita.so.avx2
 /usr/lib64/libgphoto2/2.5.19/dimagev.so
+/usr/lib64/libgphoto2/2.5.19/dimagev.so.avx2
 /usr/lib64/libgphoto2/2.5.19/dimera3500.so
+/usr/lib64/libgphoto2/2.5.19/dimera3500.so.avx2
 /usr/lib64/libgphoto2/2.5.19/directory.so
 /usr/lib64/libgphoto2/2.5.19/enigma13.so
 /usr/lib64/libgphoto2/2.5.19/fuji.so
 /usr/lib64/libgphoto2/2.5.19/gsmart300.so
-/usr/lib64/libgphoto2/2.5.19/haswell/adc65.so
-/usr/lib64/libgphoto2/2.5.19/haswell/agfa_cl20.so
-/usr/lib64/libgphoto2/2.5.19/haswell/aox.so
-/usr/lib64/libgphoto2/2.5.19/haswell/ax203.so
-/usr/lib64/libgphoto2/2.5.19/haswell/barbie.so
-/usr/lib64/libgphoto2/2.5.19/haswell/canon.so
-/usr/lib64/libgphoto2/2.5.19/haswell/casio_qv.so
-/usr/lib64/libgphoto2/2.5.19/haswell/clicksmart310.so
-/usr/lib64/libgphoto2/2.5.19/haswell/digigr8.so
-/usr/lib64/libgphoto2/2.5.19/haswell/digita.so
-/usr/lib64/libgphoto2/2.5.19/haswell/dimagev.so
-/usr/lib64/libgphoto2/2.5.19/haswell/dimera3500.so
-/usr/lib64/libgphoto2/2.5.19/haswell/directory.so
-/usr/lib64/libgphoto2/2.5.19/haswell/enigma13.so
-/usr/lib64/libgphoto2/2.5.19/haswell/fuji.so
-/usr/lib64/libgphoto2/2.5.19/haswell/gsmart300.so
-/usr/lib64/libgphoto2/2.5.19/haswell/hp215.so
-/usr/lib64/libgphoto2/2.5.19/haswell/iclick.so
-/usr/lib64/libgphoto2/2.5.19/haswell/jamcam.so
-/usr/lib64/libgphoto2/2.5.19/haswell/jd11.so
-/usr/lib64/libgphoto2/2.5.19/haswell/jl2005a.so
-/usr/lib64/libgphoto2/2.5.19/haswell/jl2005c.so
-/usr/lib64/libgphoto2/2.5.19/haswell/kodak_dc120.so
-/usr/lib64/libgphoto2/2.5.19/haswell/kodak_dc210.so
-/usr/lib64/libgphoto2/2.5.19/haswell/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.19/haswell/kodak_dc3200.so
-/usr/lib64/libgphoto2/2.5.19/haswell/kodak_ez200.so
-/usr/lib64/libgphoto2/2.5.19/haswell/konica.so
-/usr/lib64/libgphoto2/2.5.19/haswell/konica_qm150.so
-/usr/lib64/libgphoto2/2.5.19/haswell/largan.so
-/usr/lib64/libgphoto2/2.5.19/haswell/lg_gsm.so
-/usr/lib64/libgphoto2/2.5.19/haswell/mars.so
-/usr/lib64/libgphoto2/2.5.19/haswell/mustek.so
-/usr/lib64/libgphoto2/2.5.19/haswell/panasonic_coolshot.so
-/usr/lib64/libgphoto2/2.5.19/haswell/panasonic_dc1000.so
-/usr/lib64/libgphoto2/2.5.19/haswell/panasonic_dc1580.so
-/usr/lib64/libgphoto2/2.5.19/haswell/panasonic_l859.so
-/usr/lib64/libgphoto2/2.5.19/haswell/pccam300.so
-/usr/lib64/libgphoto2/2.5.19/haswell/pccam600.so
-/usr/lib64/libgphoto2/2.5.19/haswell/pentax.so
-/usr/lib64/libgphoto2/2.5.19/haswell/polaroid_pdc320.so
-/usr/lib64/libgphoto2/2.5.19/haswell/polaroid_pdc640.so
-/usr/lib64/libgphoto2/2.5.19/haswell/polaroid_pdc700.so
-/usr/lib64/libgphoto2/2.5.19/haswell/ptp2.so
-/usr/lib64/libgphoto2/2.5.19/haswell/ricoh.so
-/usr/lib64/libgphoto2/2.5.19/haswell/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.19/haswell/samsung.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sierra.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sipix_blink2.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sipix_web2.so
-/usr/lib64/libgphoto2/2.5.19/haswell/smal.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sonix.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sony_dscf1.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sony_dscf55.so
-/usr/lib64/libgphoto2/2.5.19/haswell/soundvision.so
-/usr/lib64/libgphoto2/2.5.19/haswell/spca50x.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sq905.so
-/usr/lib64/libgphoto2/2.5.19/haswell/st2205.so
-/usr/lib64/libgphoto2/2.5.19/haswell/stv0674.so
-/usr/lib64/libgphoto2/2.5.19/haswell/stv0680.so
-/usr/lib64/libgphoto2/2.5.19/haswell/sx330z.so
-/usr/lib64/libgphoto2/2.5.19/haswell/topfield.so
-/usr/lib64/libgphoto2/2.5.19/haswell/toshiba_pdrm11.so
-/usr/lib64/libgphoto2/2.5.19/haswell/tp6801.so
 /usr/lib64/libgphoto2/2.5.19/hp215.so
 /usr/lib64/libgphoto2/2.5.19/iclick.so
 /usr/lib64/libgphoto2/2.5.19/jamcam.so
+/usr/lib64/libgphoto2/2.5.19/jamcam.so.avx2
 /usr/lib64/libgphoto2/2.5.19/jd11.so
+/usr/lib64/libgphoto2/2.5.19/jd11.so.avx2
 /usr/lib64/libgphoto2/2.5.19/jl2005a.so
+/usr/lib64/libgphoto2/2.5.19/jl2005a.so.avx2
 /usr/lib64/libgphoto2/2.5.19/jl2005c.so
+/usr/lib64/libgphoto2/2.5.19/jl2005c.so.avx2
 /usr/lib64/libgphoto2/2.5.19/kodak_dc120.so
 /usr/lib64/libgphoto2/2.5.19/kodak_dc210.so
+/usr/lib64/libgphoto2/2.5.19/kodak_dc210.so.avx2
 /usr/lib64/libgphoto2/2.5.19/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.19/kodak_dc240.so.avx2
 /usr/lib64/libgphoto2/2.5.19/kodak_dc3200.so
+/usr/lib64/libgphoto2/2.5.19/kodak_dc3200.so.avx2
 /usr/lib64/libgphoto2/2.5.19/kodak_ez200.so
 /usr/lib64/libgphoto2/2.5.19/konica.so
+/usr/lib64/libgphoto2/2.5.19/konica.so.avx2
 /usr/lib64/libgphoto2/2.5.19/konica_qm150.so
+/usr/lib64/libgphoto2/2.5.19/konica_qm150.so.avx2
 /usr/lib64/libgphoto2/2.5.19/largan.so
+/usr/lib64/libgphoto2/2.5.19/largan.so.avx2
 /usr/lib64/libgphoto2/2.5.19/lg_gsm.so
 /usr/lib64/libgphoto2/2.5.19/mars.so
+/usr/lib64/libgphoto2/2.5.19/mars.so.avx2
 /usr/lib64/libgphoto2/2.5.19/mustek.so
+/usr/lib64/libgphoto2/2.5.19/mustek.so.avx2
 /usr/lib64/libgphoto2/2.5.19/panasonic_coolshot.so
+/usr/lib64/libgphoto2/2.5.19/panasonic_coolshot.so.avx2
 /usr/lib64/libgphoto2/2.5.19/panasonic_dc1000.so
 /usr/lib64/libgphoto2/2.5.19/panasonic_dc1580.so
 /usr/lib64/libgphoto2/2.5.19/panasonic_l859.so
 /usr/lib64/libgphoto2/2.5.19/pccam300.so
 /usr/lib64/libgphoto2/2.5.19/pccam600.so
 /usr/lib64/libgphoto2/2.5.19/pentax.so
+/usr/lib64/libgphoto2/2.5.19/pentax.so.avx2
 /usr/lib64/libgphoto2/2.5.19/polaroid_pdc320.so
 /usr/lib64/libgphoto2/2.5.19/polaroid_pdc640.so
+/usr/lib64/libgphoto2/2.5.19/polaroid_pdc640.so.avx2
 /usr/lib64/libgphoto2/2.5.19/polaroid_pdc700.so
 /usr/lib64/libgphoto2/2.5.19/ptp2.so
+/usr/lib64/libgphoto2/2.5.19/ptp2.so.avx2
 /usr/lib64/libgphoto2/2.5.19/ricoh.so
 /usr/lib64/libgphoto2/2.5.19/ricoh_g3.so
 /usr/lib64/libgphoto2/2.5.19/samsung.so
 /usr/lib64/libgphoto2/2.5.19/sierra.so
+/usr/lib64/libgphoto2/2.5.19/sierra.so.avx2
 /usr/lib64/libgphoto2/2.5.19/sipix_blink2.so
 /usr/lib64/libgphoto2/2.5.19/sipix_web2.so
+/usr/lib64/libgphoto2/2.5.19/sipix_web2.so.avx2
 /usr/lib64/libgphoto2/2.5.19/smal.so
 /usr/lib64/libgphoto2/2.5.19/sonix.so
+/usr/lib64/libgphoto2/2.5.19/sonix.so.avx2
 /usr/lib64/libgphoto2/2.5.19/sony_dscf1.so
+/usr/lib64/libgphoto2/2.5.19/sony_dscf1.so.avx2
 /usr/lib64/libgphoto2/2.5.19/sony_dscf55.so
 /usr/lib64/libgphoto2/2.5.19/soundvision.so
 /usr/lib64/libgphoto2/2.5.19/spca50x.so
 /usr/lib64/libgphoto2/2.5.19/sq905.so
+/usr/lib64/libgphoto2/2.5.19/sq905.so.avx2
 /usr/lib64/libgphoto2/2.5.19/st2205.so
+/usr/lib64/libgphoto2/2.5.19/st2205.so.avx2
 /usr/lib64/libgphoto2/2.5.19/stv0674.so
 /usr/lib64/libgphoto2/2.5.19/stv0680.so
+/usr/lib64/libgphoto2/2.5.19/stv0680.so.avx2
 /usr/lib64/libgphoto2/2.5.19/sx330z.so
 /usr/lib64/libgphoto2/2.5.19/topfield.so
+/usr/lib64/libgphoto2/2.5.19/topfield.so.avx2
 /usr/lib64/libgphoto2/2.5.19/toshiba_pdrm11.so
+/usr/lib64/libgphoto2/2.5.19/toshiba_pdrm11.so.avx2
 /usr/lib64/libgphoto2/2.5.19/tp6801.so
+/usr/lib64/libgphoto2/2.5.19/tp6801.so.avx2
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/disk.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/ptpip.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/serial.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/usb1.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/usbdiskdirect.so
-/usr/lib64/libgphoto2_port/0.12.0/haswell/usbscsi.so
 /usr/lib64/libgphoto2_port/0.12.0/ptpip.so
 /usr/lib64/libgphoto2_port/0.12.0/serial.so
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
+/usr/lib64/libgphoto2_port/0.12.0/usb1.so.avx2
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
 
