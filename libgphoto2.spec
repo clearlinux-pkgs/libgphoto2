@@ -5,19 +5,19 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.19
-Release  : 14
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2
-Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2.asc
+Version  : 2.5.20
+Release  : 15
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.20/libgphoto2-2.5.20.tar.bz2
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.20/libgphoto2-2.5.20.tar.bz2
+Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.20/libgphoto2-2.5.20.tar.bz2.asc
 Summary  : Software for accessing digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
-Requires: libgphoto2-bin
-Requires: libgphoto2-lib
-Requires: libgphoto2-license
-Requires: libgphoto2-data
-Requires: libgphoto2-locales
+Requires: libgphoto2-bin = %{version}-%{release}
+Requires: libgphoto2-data = %{version}-%{release}
+Requires: libgphoto2-lib = %{version}-%{release}
+Requires: libgphoto2-license = %{version}-%{release}
+Requires: libgphoto2-locales = %{version}-%{release}
 BuildRequires : bison
 BuildRequires : buildreq-qmake
 BuildRequires : flex
@@ -44,8 +44,8 @@ frontends are available seperately.
 %package bin
 Summary: bin components for the libgphoto2 package.
 Group: Binaries
-Requires: libgphoto2-data
-Requires: libgphoto2-license
+Requires: libgphoto2-data = %{version}-%{release}
+Requires: libgphoto2-license = %{version}-%{release}
 
 %description bin
 bin components for the libgphoto2 package.
@@ -62,10 +62,10 @@ data components for the libgphoto2 package.
 %package dev
 Summary: dev components for the libgphoto2 package.
 Group: Development
-Requires: libgphoto2-lib
-Requires: libgphoto2-bin
-Requires: libgphoto2-data
-Provides: libgphoto2-devel
+Requires: libgphoto2-lib = %{version}-%{release}
+Requires: libgphoto2-bin = %{version}-%{release}
+Requires: libgphoto2-data = %{version}-%{release}
+Provides: libgphoto2-devel = %{version}-%{release}
 
 %description dev
 dev components for the libgphoto2 package.
@@ -82,8 +82,8 @@ doc components for the libgphoto2 package.
 %package lib
 Summary: lib components for the libgphoto2 package.
 Group: Libraries
-Requires: libgphoto2-data
-Requires: libgphoto2-license
+Requires: libgphoto2-data = %{version}-%{release}
+Requires: libgphoto2-license = %{version}-%{release}
 
 %description lib
 lib components for the libgphoto2 package.
@@ -106,17 +106,14 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.19
-pushd ..
-cp -a libgphoto2-2.5.19 buildavx2
-popd
+%setup -q -n libgphoto2-2.5.20
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536138714
+export SOURCE_DATE_EPOCH=1540739318
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -124,14 +121,6 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 %configure --disable-static
 make  %{?_smp_mflags}
 
-unset PKG_CONFIG_PATH
-pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=haswell"
-export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
-export LDFLAGS="$LDFLAGS -m64 -march=haswell"
-%configure --disable-static
-make  %{?_smp_mflags}
-popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -140,28 +129,17 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536138714
+export SOURCE_DATE_EPOCH=1540739318
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/libgphoto2
-cp COPYING %{buildroot}/usr/share/doc/libgphoto2/COPYING
-cp camlibs/konica/COPYING %{buildroot}/usr/share/doc/libgphoto2/camlibs_konica_COPYING
-cp camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/doc/libgphoto2/camlibs_minolta_dimagev_COPYING
-cp camlibs/stv0680/LICENCE %{buildroot}/usr/share/doc/libgphoto2/camlibs_stv0680_LICENCE
-cp libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/doc/libgphoto2/libgphoto2_port_COPYING.LIB
-pushd ../buildavx2/
-%make_install_avx2
-popd
+mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
+cp COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/COPYING
+cp camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_konica_COPYING
+cp camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_minolta_dimagev_COPYING
+cp camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_stv0680_LICENCE
+cp libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/libgphoto2_port_COPYING.LIB
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
-## install_append content
-pushd %{buildroot}/usr/lib64/libgphoto2/2.5.19/haswell
-for i in *.so; do mv $i ../$i.avx2 ; done
-popd
-pushd %{buildroot}/usr/lib64/libgphoto2_port/0.12.0/haswell/
-for i in *.so; do mv $i ../$i.avx2 ; done
-popd
-## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -175,12 +153,12 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.19/konica/english
-/usr/share/libgphoto2/2.5.19/konica/french
-/usr/share/libgphoto2/2.5.19/konica/german
-/usr/share/libgphoto2/2.5.19/konica/japanese
-/usr/share/libgphoto2/2.5.19/konica/korean
-/usr/share/libgphoto2/2.5.19/konica/spanish
+/usr/share/libgphoto2/2.5.20/konica/english
+/usr/share/libgphoto2/2.5.20/konica/french
+/usr/share/libgphoto2/2.5.20/konica/german
+/usr/share/libgphoto2/2.5.20/konica/japanese
+/usr/share/libgphoto2/2.5.20/konica/korean
+/usr/share/libgphoto2/2.5.20/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
@@ -204,7 +182,6 @@ popd
 /usr/include/gphoto2/gphoto2-version.h
 /usr/include/gphoto2/gphoto2-widget.h
 /usr/include/gphoto2/gphoto2.h
-/usr/lib64/haswell/libgphoto2.so
 /usr/lib64/libgphoto2.so
 /usr/lib64/libgphoto2_port.so
 /usr/lib64/pkgconfig/libgphoto2.pc
@@ -221,125 +198,88 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libgphoto2.so.6
-/usr/lib64/haswell/libgphoto2.so.6.1.0
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.1.0
-/usr/lib64/libgphoto2/2.5.19/adc65.so
-/usr/lib64/libgphoto2/2.5.19/adc65.so.avx2
-/usr/lib64/libgphoto2/2.5.19/agfa_cl20.so
-/usr/lib64/libgphoto2/2.5.19/agfa_cl20.so.avx2
-/usr/lib64/libgphoto2/2.5.19/aox.so
-/usr/lib64/libgphoto2/2.5.19/aox.so.avx2
-/usr/lib64/libgphoto2/2.5.19/ax203.so
-/usr/lib64/libgphoto2/2.5.19/ax203.so.avx2
-/usr/lib64/libgphoto2/2.5.19/barbie.so
-/usr/lib64/libgphoto2/2.5.19/canon.so
-/usr/lib64/libgphoto2/2.5.19/casio_qv.so
-/usr/lib64/libgphoto2/2.5.19/casio_qv.so.avx2
-/usr/lib64/libgphoto2/2.5.19/clicksmart310.so
-/usr/lib64/libgphoto2/2.5.19/digigr8.so
-/usr/lib64/libgphoto2/2.5.19/digigr8.so.avx2
-/usr/lib64/libgphoto2/2.5.19/digita.so
-/usr/lib64/libgphoto2/2.5.19/digita.so.avx2
-/usr/lib64/libgphoto2/2.5.19/dimagev.so
-/usr/lib64/libgphoto2/2.5.19/dimagev.so.avx2
-/usr/lib64/libgphoto2/2.5.19/dimera3500.so
-/usr/lib64/libgphoto2/2.5.19/dimera3500.so.avx2
-/usr/lib64/libgphoto2/2.5.19/directory.so
-/usr/lib64/libgphoto2/2.5.19/enigma13.so
-/usr/lib64/libgphoto2/2.5.19/fuji.so
-/usr/lib64/libgphoto2/2.5.19/gsmart300.so
-/usr/lib64/libgphoto2/2.5.19/hp215.so
-/usr/lib64/libgphoto2/2.5.19/iclick.so
-/usr/lib64/libgphoto2/2.5.19/jamcam.so
-/usr/lib64/libgphoto2/2.5.19/jamcam.so.avx2
-/usr/lib64/libgphoto2/2.5.19/jd11.so
-/usr/lib64/libgphoto2/2.5.19/jd11.so.avx2
-/usr/lib64/libgphoto2/2.5.19/jl2005a.so
-/usr/lib64/libgphoto2/2.5.19/jl2005a.so.avx2
-/usr/lib64/libgphoto2/2.5.19/jl2005c.so
-/usr/lib64/libgphoto2/2.5.19/jl2005c.so.avx2
-/usr/lib64/libgphoto2/2.5.19/kodak_dc120.so
-/usr/lib64/libgphoto2/2.5.19/kodak_dc210.so
-/usr/lib64/libgphoto2/2.5.19/kodak_dc210.so.avx2
-/usr/lib64/libgphoto2/2.5.19/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.19/kodak_dc240.so.avx2
-/usr/lib64/libgphoto2/2.5.19/kodak_dc3200.so
-/usr/lib64/libgphoto2/2.5.19/kodak_dc3200.so.avx2
-/usr/lib64/libgphoto2/2.5.19/kodak_ez200.so
-/usr/lib64/libgphoto2/2.5.19/konica.so
-/usr/lib64/libgphoto2/2.5.19/konica.so.avx2
-/usr/lib64/libgphoto2/2.5.19/konica_qm150.so
-/usr/lib64/libgphoto2/2.5.19/konica_qm150.so.avx2
-/usr/lib64/libgphoto2/2.5.19/largan.so
-/usr/lib64/libgphoto2/2.5.19/largan.so.avx2
-/usr/lib64/libgphoto2/2.5.19/lg_gsm.so
-/usr/lib64/libgphoto2/2.5.19/mars.so
-/usr/lib64/libgphoto2/2.5.19/mars.so.avx2
-/usr/lib64/libgphoto2/2.5.19/mustek.so
-/usr/lib64/libgphoto2/2.5.19/mustek.so.avx2
-/usr/lib64/libgphoto2/2.5.19/panasonic_coolshot.so
-/usr/lib64/libgphoto2/2.5.19/panasonic_coolshot.so.avx2
-/usr/lib64/libgphoto2/2.5.19/panasonic_dc1000.so
-/usr/lib64/libgphoto2/2.5.19/panasonic_dc1580.so
-/usr/lib64/libgphoto2/2.5.19/panasonic_l859.so
-/usr/lib64/libgphoto2/2.5.19/pccam300.so
-/usr/lib64/libgphoto2/2.5.19/pccam600.so
-/usr/lib64/libgphoto2/2.5.19/pentax.so
-/usr/lib64/libgphoto2/2.5.19/pentax.so.avx2
-/usr/lib64/libgphoto2/2.5.19/polaroid_pdc320.so
-/usr/lib64/libgphoto2/2.5.19/polaroid_pdc640.so
-/usr/lib64/libgphoto2/2.5.19/polaroid_pdc640.so.avx2
-/usr/lib64/libgphoto2/2.5.19/polaroid_pdc700.so
-/usr/lib64/libgphoto2/2.5.19/ptp2.so
-/usr/lib64/libgphoto2/2.5.19/ptp2.so.avx2
-/usr/lib64/libgphoto2/2.5.19/ricoh.so
-/usr/lib64/libgphoto2/2.5.19/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.19/samsung.so
-/usr/lib64/libgphoto2/2.5.19/sierra.so
-/usr/lib64/libgphoto2/2.5.19/sierra.so.avx2
-/usr/lib64/libgphoto2/2.5.19/sipix_blink2.so
-/usr/lib64/libgphoto2/2.5.19/sipix_web2.so
-/usr/lib64/libgphoto2/2.5.19/sipix_web2.so.avx2
-/usr/lib64/libgphoto2/2.5.19/smal.so
-/usr/lib64/libgphoto2/2.5.19/sonix.so
-/usr/lib64/libgphoto2/2.5.19/sonix.so.avx2
-/usr/lib64/libgphoto2/2.5.19/sony_dscf1.so
-/usr/lib64/libgphoto2/2.5.19/sony_dscf1.so.avx2
-/usr/lib64/libgphoto2/2.5.19/sony_dscf55.so
-/usr/lib64/libgphoto2/2.5.19/soundvision.so
-/usr/lib64/libgphoto2/2.5.19/spca50x.so
-/usr/lib64/libgphoto2/2.5.19/sq905.so
-/usr/lib64/libgphoto2/2.5.19/sq905.so.avx2
-/usr/lib64/libgphoto2/2.5.19/st2205.so
-/usr/lib64/libgphoto2/2.5.19/st2205.so.avx2
-/usr/lib64/libgphoto2/2.5.19/stv0674.so
-/usr/lib64/libgphoto2/2.5.19/stv0680.so
-/usr/lib64/libgphoto2/2.5.19/stv0680.so.avx2
-/usr/lib64/libgphoto2/2.5.19/sx330z.so
-/usr/lib64/libgphoto2/2.5.19/topfield.so
-/usr/lib64/libgphoto2/2.5.19/topfield.so.avx2
-/usr/lib64/libgphoto2/2.5.19/toshiba_pdrm11.so
-/usr/lib64/libgphoto2/2.5.19/toshiba_pdrm11.so.avx2
-/usr/lib64/libgphoto2/2.5.19/tp6801.so
-/usr/lib64/libgphoto2/2.5.19/tp6801.so.avx2
+/usr/lib64/libgphoto2/2.5.20/adc65.so
+/usr/lib64/libgphoto2/2.5.20/agfa_cl20.so
+/usr/lib64/libgphoto2/2.5.20/aox.so
+/usr/lib64/libgphoto2/2.5.20/ax203.so
+/usr/lib64/libgphoto2/2.5.20/barbie.so
+/usr/lib64/libgphoto2/2.5.20/canon.so
+/usr/lib64/libgphoto2/2.5.20/casio_qv.so
+/usr/lib64/libgphoto2/2.5.20/clicksmart310.so
+/usr/lib64/libgphoto2/2.5.20/digigr8.so
+/usr/lib64/libgphoto2/2.5.20/digita.so
+/usr/lib64/libgphoto2/2.5.20/dimagev.so
+/usr/lib64/libgphoto2/2.5.20/dimera3500.so
+/usr/lib64/libgphoto2/2.5.20/directory.so
+/usr/lib64/libgphoto2/2.5.20/enigma13.so
+/usr/lib64/libgphoto2/2.5.20/fuji.so
+/usr/lib64/libgphoto2/2.5.20/gsmart300.so
+/usr/lib64/libgphoto2/2.5.20/hp215.so
+/usr/lib64/libgphoto2/2.5.20/iclick.so
+/usr/lib64/libgphoto2/2.5.20/jamcam.so
+/usr/lib64/libgphoto2/2.5.20/jd11.so
+/usr/lib64/libgphoto2/2.5.20/jl2005a.so
+/usr/lib64/libgphoto2/2.5.20/jl2005c.so
+/usr/lib64/libgphoto2/2.5.20/kodak_dc120.so
+/usr/lib64/libgphoto2/2.5.20/kodak_dc210.so
+/usr/lib64/libgphoto2/2.5.20/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.20/kodak_dc3200.so
+/usr/lib64/libgphoto2/2.5.20/kodak_ez200.so
+/usr/lib64/libgphoto2/2.5.20/konica.so
+/usr/lib64/libgphoto2/2.5.20/konica_qm150.so
+/usr/lib64/libgphoto2/2.5.20/largan.so
+/usr/lib64/libgphoto2/2.5.20/lg_gsm.so
+/usr/lib64/libgphoto2/2.5.20/mars.so
+/usr/lib64/libgphoto2/2.5.20/mustek.so
+/usr/lib64/libgphoto2/2.5.20/panasonic_coolshot.so
+/usr/lib64/libgphoto2/2.5.20/panasonic_dc1000.so
+/usr/lib64/libgphoto2/2.5.20/panasonic_dc1580.so
+/usr/lib64/libgphoto2/2.5.20/panasonic_l859.so
+/usr/lib64/libgphoto2/2.5.20/pccam300.so
+/usr/lib64/libgphoto2/2.5.20/pccam600.so
+/usr/lib64/libgphoto2/2.5.20/pentax.so
+/usr/lib64/libgphoto2/2.5.20/polaroid_pdc320.so
+/usr/lib64/libgphoto2/2.5.20/polaroid_pdc640.so
+/usr/lib64/libgphoto2/2.5.20/polaroid_pdc700.so
+/usr/lib64/libgphoto2/2.5.20/ptp2.so
+/usr/lib64/libgphoto2/2.5.20/ricoh.so
+/usr/lib64/libgphoto2/2.5.20/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.20/samsung.so
+/usr/lib64/libgphoto2/2.5.20/sierra.so
+/usr/lib64/libgphoto2/2.5.20/sipix_blink2.so
+/usr/lib64/libgphoto2/2.5.20/sipix_web2.so
+/usr/lib64/libgphoto2/2.5.20/smal.so
+/usr/lib64/libgphoto2/2.5.20/sonix.so
+/usr/lib64/libgphoto2/2.5.20/sony_dscf1.so
+/usr/lib64/libgphoto2/2.5.20/sony_dscf55.so
+/usr/lib64/libgphoto2/2.5.20/soundvision.so
+/usr/lib64/libgphoto2/2.5.20/spca50x.so
+/usr/lib64/libgphoto2/2.5.20/sq905.so
+/usr/lib64/libgphoto2/2.5.20/st2205.so
+/usr/lib64/libgphoto2/2.5.20/stv0674.so
+/usr/lib64/libgphoto2/2.5.20/stv0680.so
+/usr/lib64/libgphoto2/2.5.20/sx330z.so
+/usr/lib64/libgphoto2/2.5.20/topfield.so
+/usr/lib64/libgphoto2/2.5.20/toshiba_pdrm11.so
+/usr/lib64/libgphoto2/2.5.20/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
 /usr/lib64/libgphoto2_port/0.12.0/ptpip.so
 /usr/lib64/libgphoto2_port/0.12.0/serial.so
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
-/usr/lib64/libgphoto2_port/0.12.0/usb1.so.avx2
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/libgphoto2/COPYING
-/usr/share/doc/libgphoto2/camlibs_konica_COPYING
-/usr/share/doc/libgphoto2/camlibs_minolta_dimagev_COPYING
-/usr/share/doc/libgphoto2/libgphoto2_port_COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libgphoto2/COPYING
+/usr/share/package-licenses/libgphoto2/camlibs_konica_COPYING
+/usr/share/package-licenses/libgphoto2/camlibs_minolta_dimagev_COPYING
+/usr/share/package-licenses/libgphoto2/camlibs_stv0680_LICENCE
+/usr/share/package-licenses/libgphoto2/libgphoto2_port_COPYING.LIB
 
 %files locales -f libgphoto2-6.lang -f libgphoto2_port-12.lang
 %defattr(-,root,root,-)

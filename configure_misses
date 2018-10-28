@@ -33,38 +33,3 @@ Configure miss: ttylock.h
 Configure miss: dev_lock in -llockdev
 Configure miss: libusb >= 0.1.5
 Configure miss: libusb-config
-Configure miss: po/Makevars requiring hack
-Configure miss: main in -libs
-Configure miss: struct statfs.f_favail
-Configure miss: struct statvfs.f_blocks
-Configure miss: le32toh in machine/endian.h
-Configure miss: swap32 in machine/endian.h
-Configure miss: whether to create internal code docs
-Configure miss: po/Makevars requiring hack
-Configure miss: sgetty.h usability
-Configure miss: sgetty.h presence
-Configure miss: sgetty.h
-Configure miss: ttold.h usability
-Configure miss: ttold.h presence
-Configure miss: ttold.h
-Configure miss: ioctl-types.h usability
-Configure miss: ioctl-types.h presence
-Configure miss: ioctl-types.h
-Configure miss: asm/io.h usability
-Configure miss: asm/io.h presence
-Configure miss: asm/io.h
-Configure miss: sys/mntent.h usability
-Configure miss: sys/mntent.h presence
-Configure miss: sys/mntent.h
-Configure miss: sys/mnttab.h usability
-Configure miss: sys/mnttab.h presence
-Configure miss: sys/mnttab.h
-Configure miss: regexec in -lregex
-Configure miss: mnt_mountp in struct mnttab
-Configure miss: lockdev.h usability
-Configure miss: lockdev.h presence
-Configure miss: lockdev.h
-Configure miss: ttylock.h
-Configure miss: dev_lock in -llockdev
-Configure miss: libusb >= 0.1.5
-Configure miss: libusb-config
