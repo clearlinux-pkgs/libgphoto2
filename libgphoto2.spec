@@ -6,11 +6,11 @@
 #
 Name     : libgphoto2
 Version  : 2.5.22
-Release  : 17
+Release  : 18
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.22/libgphoto2-2.5.22.tar.gz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.22/libgphoto2-2.5.22.tar.gz
 Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.22/libgphoto2-2.5.22.tar.gz.asc
-Summary  : Software for accessing digital cameras
+Summary  : The core library of gphoto2, designed to allow access to digital camera by external programs.
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
 Requires: libgphoto2-bin = %{version}-%{release}
@@ -66,6 +66,7 @@ Requires: libgphoto2-lib = %{version}-%{release}
 Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
 Provides: libgphoto2-devel = %{version}-%{release}
+Requires: libgphoto2 = %{version}-%{release}
 
 %description dev
 dev components for the libgphoto2 package.
@@ -113,11 +114,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546367908
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export SOURCE_DATE_EPOCH=1557078336
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -129,7 +133,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1546367908
+export SOURCE_DATE_EPOCH=1557078336
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
 cp COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/COPYING
