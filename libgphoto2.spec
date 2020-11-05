@@ -6,11 +6,11 @@
 #
 Name     : libgphoto2
 Version  : 2.5.23
-Release  : 20
+Release  : 21
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz
-Source99 : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz.asc
-Summary  : The core library of gphoto2, designed to allow access to digital camera by external programs.
+Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz.asc
+Summary  : Software for accessing digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
 Requires: libgphoto2-bin = %{version}-%{release}
@@ -66,7 +66,6 @@ Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
 Provides: libgphoto2-devel = %{version}-%{release}
 Requires: libgphoto2 = %{version}-%{release}
-Requires: libgphoto2 = %{version}-%{release}
 
 %description dev
 dev components for the libgphoto2 package.
@@ -108,39 +107,41 @@ locales components for the libgphoto2 package.
 
 %prep
 %setup -q -n libgphoto2-2.5.23
+cd %{_builddir}/libgphoto2-2.5.23
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1559492808
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604618787
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1559492808
+export SOURCE_DATE_EPOCH=1604618787
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
-cp COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/COPYING
-cp camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_konica_COPYING
-cp camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_minolta_dimagev_COPYING
-cp camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/camlibs_stv0680_LICENCE
-cp libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/libgphoto2_port_COPYING.LIB
+cp %{_builddir}/libgphoto2-2.5.23/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
+cp %{_builddir}/libgphoto2-2.5.23/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
+cp %{_builddir}/libgphoto2-2.5.23/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
+cp %{_builddir}/libgphoto2-2.5.23/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
+cp %{_builddir}/libgphoto2-2.5.23/libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
@@ -232,11 +233,11 @@ cp libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libgphoto2/COPYING
-/usr/share/package-licenses/libgphoto2/camlibs_konica_COPYING
-/usr/share/package-licenses/libgphoto2/camlibs_minolta_dimagev_COPYING
-/usr/share/package-licenses/libgphoto2/camlibs_stv0680_LICENCE
-/usr/share/package-licenses/libgphoto2/libgphoto2_port_COPYING.LIB
+/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
+/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
+/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
+/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
+/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
 
 %files locales -f libgphoto2-6.lang -f libgphoto2_port-12.lang
 %defattr(-,root,root,-)

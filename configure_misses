@@ -1,4 +1,5 @@
 Configure miss: po/Makevars requiring hack
+Configure miss: asm .symver support
 Configure miss: main in -libs
 Configure miss: struct statfs.f_favail
 Configure miss: struct statvfs.f_blocks
@@ -25,6 +26,7 @@ Configure miss: sys/mnttab.h usability
 Configure miss: sys/mnttab.h presence
 Configure miss: sys/mnttab.h
 Configure miss: regexec in -lregex
+Configure miss: asm .symver support
 Configure miss: mnt_mountp in struct mnttab
 Configure miss: lockdev.h usability
 Configure miss: lockdev.h presence
