@@ -1,6 +1,8 @@
 Configure miss: po/Makevars requiring hack
-Configure miss: asm .symver support
 Configure miss: main in -libs
+Configure miss: LIBCURL
+Configure miss: libcurl config program
+Configure miss: none
 Configure miss: struct statfs.f_favail
 Configure miss: struct statvfs.f_blocks
 Configure miss: le32toh in machine/endian.h
@@ -26,12 +28,11 @@ Configure miss: sys/mnttab.h usability
 Configure miss: sys/mnttab.h presence
 Configure miss: sys/mnttab.h
 Configure miss: regexec in -lregex
-Configure miss: asm .symver support
 Configure miss: mnt_mountp in struct mnttab
 Configure miss: lockdev.h usability
 Configure miss: lockdev.h presence
 Configure miss: lockdev.h
 Configure miss: ttylock.h
 Configure miss: dev_lock in -llockdev
-Configure miss: libusb >= 0.1.5
+Configure miss: LIBUSB
 Configure miss: libusb-config

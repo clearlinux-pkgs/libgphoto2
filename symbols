@@ -181,6 +181,8 @@ libgphoto2.so.6:gpi_jpeg_chunk_print
 libgphoto2.so.6:gpi_jpeg_destroy
 libgphoto2.so.6:gpi_jpeg_header
 libgphoto2.so.6:gpi_jpeg_write
+libgphoto2_port.so.12:LIBGPHOTO2_5_0
+libgphoto2_port.so.12:LIBGPHOTO2_INTERNAL
 libgphoto2_port.so.12:gp_log
 libgphoto2_port.so.12:gp_log_add_func
 libgphoto2_port.so.12:gp_log_data

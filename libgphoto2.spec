@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.23
-Release  : 21
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz
-Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.gz.asc
+Version  : 2.5.26
+Release  : 22
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
+Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz.asc
 Summary  : Software for accessing digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
@@ -38,7 +38,7 @@ This libgphoto2 package contains only the library that digital
 camera applications can use.
 
 Frontend like the command-line utility gphoto2 and other (GUI)
-frontends are available seperately.
+frontends are available separately.
 
 %package bin
 Summary: bin components for the libgphoto2 package.
@@ -106,15 +106,15 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.23
-cd %{_builddir}/libgphoto2-2.5.23
+%setup -q -n libgphoto2-2.5.26
+cd %{_builddir}/libgphoto2-2.5.26
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604618787
+export SOURCE_DATE_EPOCH=1604620216
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -134,14 +134,14 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604618787
+export SOURCE_DATE_EPOCH=1604620216
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
-cp %{_builddir}/libgphoto2-2.5.23/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
-cp %{_builddir}/libgphoto2-2.5.23/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
-cp %{_builddir}/libgphoto2-2.5.23/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
-cp %{_builddir}/libgphoto2-2.5.23/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
-cp %{_builddir}/libgphoto2-2.5.23/libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
+cp %{_builddir}/libgphoto2-2.5.26/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
+cp %{_builddir}/libgphoto2-2.5.26/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
+cp %{_builddir}/libgphoto2-2.5.26/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
+cp %{_builddir}/libgphoto2-2.5.26/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
+cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
@@ -158,17 +158,16 @@ cp %{_builddir}/libgphoto2-2.5.23/libgphoto2_port/COPYING.LIB %{buildroot}/usr/s
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.23/konica/english
-/usr/share/libgphoto2/2.5.23/konica/french
-/usr/share/libgphoto2/2.5.23/konica/german
-/usr/share/libgphoto2/2.5.23/konica/japanese
-/usr/share/libgphoto2/2.5.23/konica/korean
-/usr/share/libgphoto2/2.5.23/konica/spanish
+/usr/share/libgphoto2/2.5.26/konica/english
+/usr/share/libgphoto2/2.5.26/konica/french
+/usr/share/libgphoto2/2.5.26/konica/german
+/usr/share/libgphoto2/2.5.26/konica/japanese
+/usr/share/libgphoto2/2.5.26/konica/korean
+/usr/share/libgphoto2/2.5.26/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/gphoto2/gphoto2
 /usr/include/gphoto2/gphoto2-abilities-list.h
 /usr/include/gphoto2/gphoto2-camera.h
 /usr/include/gphoto2/gphoto2-context.h
@@ -205,23 +204,25 @@ cp %{_builddir}/libgphoto2-2.5.23/libgphoto2_port/COPYING.LIB %{buildroot}/usr/s
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.1.0
-/usr/lib64/libgphoto2/2.5.23/ax203.so
-/usr/lib64/libgphoto2/2.5.23/canon.so
-/usr/lib64/libgphoto2/2.5.23/digigr8.so
-/usr/lib64/libgphoto2/2.5.23/dimagev.so
-/usr/lib64/libgphoto2/2.5.23/directory.so
-/usr/lib64/libgphoto2/2.5.23/jl2005a.so
-/usr/lib64/libgphoto2/2.5.23/jl2005c.so
-/usr/lib64/libgphoto2/2.5.23/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.23/mars.so
-/usr/lib64/libgphoto2/2.5.23/pentax.so
-/usr/lib64/libgphoto2/2.5.23/ptp2.so
-/usr/lib64/libgphoto2/2.5.23/sierra.so
-/usr/lib64/libgphoto2/2.5.23/sonix.so
-/usr/lib64/libgphoto2/2.5.23/sq905.so
-/usr/lib64/libgphoto2/2.5.23/st2205.so
-/usr/lib64/libgphoto2/2.5.23/topfield.so
-/usr/lib64/libgphoto2/2.5.23/tp6801.so
+/usr/lib64/libgphoto2/2.5.26/ax203.so
+/usr/lib64/libgphoto2/2.5.26/canon.so
+/usr/lib64/libgphoto2/2.5.26/digigr8.so
+/usr/lib64/libgphoto2/2.5.26/dimagev.so
+/usr/lib64/libgphoto2/2.5.26/directory.so
+/usr/lib64/libgphoto2/2.5.26/docupen.so
+/usr/lib64/libgphoto2/2.5.26/jl2005a.so
+/usr/lib64/libgphoto2/2.5.26/jl2005c.so
+/usr/lib64/libgphoto2/2.5.26/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.26/mars.so
+/usr/lib64/libgphoto2/2.5.26/pentax.so
+/usr/lib64/libgphoto2/2.5.26/ptp2.so
+/usr/lib64/libgphoto2/2.5.26/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.26/sierra.so
+/usr/lib64/libgphoto2/2.5.26/sonix.so
+/usr/lib64/libgphoto2/2.5.26/sq905.so
+/usr/lib64/libgphoto2/2.5.26/st2205.so
+/usr/lib64/libgphoto2/2.5.26/topfield.so
+/usr/lib64/libgphoto2/2.5.26/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
