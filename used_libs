@@ -1,9 +1,10 @@
 libc.so.6
+libcurl.so.4
 libexif.so.12
 libgd.so.3
 libjpeg.so.62
 libltdl.so.7
 libm.so.6
-libpthread.so.0
+libmvec.so.1
 libusb-1.0.so.0
 libxml2.so.2

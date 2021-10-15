@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.26
-Release  : 22
+Release  : 23
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
 Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz.asc
@@ -15,10 +15,12 @@ Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
 Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
+Requires: libgphoto2-filemap = %{version}-%{release}
 Requires: libgphoto2-lib = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
 Requires: libgphoto2-locales = %{version}-%{release}
 BuildRequires : bison
+BuildRequires : curl-dev
 BuildRequires : flex
 BuildRequires : libexif-dev
 BuildRequires : libgd-dev
@@ -45,6 +47,7 @@ Summary: bin components for the libgphoto2 package.
 Group: Binaries
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
+Requires: libgphoto2-filemap = %{version}-%{release}
 
 %description bin
 bin components for the libgphoto2 package.
@@ -79,11 +82,20 @@ Group: Documentation
 doc components for the libgphoto2 package.
 
 
+%package filemap
+Summary: filemap components for the libgphoto2 package.
+Group: Default
+
+%description filemap
+filemap components for the libgphoto2 package.
+
+
 %package lib
 Summary: lib components for the libgphoto2 package.
 Group: Libraries
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
+Requires: libgphoto2-filemap = %{version}-%{release}
 
 %description lib
 lib components for the libgphoto2 package.
@@ -108,33 +120,48 @@ locales components for the libgphoto2 package.
 %prep
 %setup -q -n libgphoto2-2.5.26
 cd %{_builddir}/libgphoto2-2.5.26
+pushd ..
+cp -a libgphoto2-2.5.26 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604620216
+export SOURCE_DATE_EPOCH=1634312264
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
+cd ../buildavx2;
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1604620216
+export SOURCE_DATE_EPOCH=1634312264
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
 cp %{_builddir}/libgphoto2-2.5.26/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
@@ -142,9 +169,13 @@ cp %{_builddir}/libgphoto2-2.5.26/camlibs/konica/COPYING %{buildroot}/usr/share/
 cp %{_builddir}/libgphoto2-2.5.26/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
 cp %{_builddir}/libgphoto2-2.5.26/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
 cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -200,6 +231,10 @@ cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/s
 /usr/share/doc/libgphoto2_port/NEWS
 /usr/share/doc/libgphoto2_port/README
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-libgphoto2
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
@@ -213,6 +248,7 @@ cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/s
 /usr/lib64/libgphoto2/2.5.26/jl2005a.so
 /usr/lib64/libgphoto2/2.5.26/jl2005c.so
 /usr/lib64/libgphoto2/2.5.26/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.26/lumix.so
 /usr/lib64/libgphoto2/2.5.26/mars.so
 /usr/lib64/libgphoto2/2.5.26/pentax.so
 /usr/lib64/libgphoto2/2.5.26/ptp2.so
@@ -231,6 +267,7 @@ cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/s
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)

@@ -3,3 +3,4 @@
 libusb-dev
 libgd-dev
 libexif-dev
+curl-dev

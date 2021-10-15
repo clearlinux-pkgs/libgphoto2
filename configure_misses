@@ -1,38 +1,72 @@
-Configure miss: po/Makevars requiring hack
+Configure miss: LIBUSB
+Configure miss: LIBUSB
+Configure miss: asm/io.h
+Configure miss: asm/io.h
+Configure miss: asm/io.h presence
+Configure miss: asm/io.h presence
+Configure miss: asm/io.h usability
+Configure miss: asm/io.h usability
+Configure miss: dev_lock in -llockdev
+Configure miss: dev_lock in -llockdev
+Configure miss: ioctl-types.h
+Configure miss: ioctl-types.h
+Configure miss: ioctl-types.h presence
+Configure miss: ioctl-types.h presence
+Configure miss: ioctl-types.h usability
+Configure miss: ioctl-types.h usability
+Configure miss: le32toh in machine/endian.h
+Configure miss: le32toh in machine/endian.h
+Configure miss: libusb-config
+Configure miss: libusb-config
+Configure miss: lockdev.h
+Configure miss: lockdev.h
+Configure miss: lockdev.h presence
+Configure miss: lockdev.h presence
+Configure miss: lockdev.h usability
+Configure miss: lockdev.h usability
 Configure miss: main in -libs
-Configure miss: LIBCURL
-Configure miss: libcurl config program
-Configure miss: none
+Configure miss: main in -libs
+Configure miss: mnt_mountp in struct mnttab
+Configure miss: mnt_mountp in struct mnttab
+Configure miss: po/Makevars requiring hack
+Configure miss: po/Makevars requiring hack
+Configure miss: po/Makevars requiring hack
+Configure miss: po/Makevars requiring hack
+Configure miss: regexec in -lregex
+Configure miss: regexec in -lregex
+Configure miss: sgetty.h
+Configure miss: sgetty.h
+Configure miss: sgetty.h presence
+Configure miss: sgetty.h presence
+Configure miss: sgetty.h usability
+Configure miss: sgetty.h usability
+Configure miss: struct statfs.f_favail
 Configure miss: struct statfs.f_favail
 Configure miss: struct statvfs.f_blocks
-Configure miss: le32toh in machine/endian.h
+Configure miss: struct statvfs.f_blocks
 Configure miss: swap32 in machine/endian.h
-Configure miss: whether to create internal code docs
-Configure miss: po/Makevars requiring hack
-Configure miss: sgetty.h usability
-Configure miss: sgetty.h presence
-Configure miss: sgetty.h
-Configure miss: ttold.h usability
-Configure miss: ttold.h presence
-Configure miss: ttold.h
-Configure miss: ioctl-types.h usability
-Configure miss: ioctl-types.h presence
-Configure miss: ioctl-types.h
-Configure miss: asm/io.h usability
-Configure miss: asm/io.h presence
-Configure miss: asm/io.h
-Configure miss: sys/mntent.h usability
-Configure miss: sys/mntent.h presence
+Configure miss: swap32 in machine/endian.h
 Configure miss: sys/mntent.h
-Configure miss: sys/mnttab.h usability
-Configure miss: sys/mnttab.h presence
+Configure miss: sys/mntent.h
+Configure miss: sys/mntent.h presence
+Configure miss: sys/mntent.h presence
+Configure miss: sys/mntent.h usability
+Configure miss: sys/mntent.h usability
 Configure miss: sys/mnttab.h
-Configure miss: regexec in -lregex
-Configure miss: mnt_mountp in struct mnttab
-Configure miss: lockdev.h usability
-Configure miss: lockdev.h presence
-Configure miss: lockdev.h
+Configure miss: sys/mnttab.h
+Configure miss: sys/mnttab.h presence
+Configure miss: sys/mnttab.h presence
+Configure miss: sys/mnttab.h usability
+Configure miss: sys/mnttab.h usability
+Configure miss: ttold.h
+Configure miss: ttold.h
+Configure miss: ttold.h presence
+Configure miss: ttold.h presence
+Configure miss: ttold.h usability
+Configure miss: ttold.h usability
 Configure miss: ttylock.h
-Configure miss: dev_lock in -llockdev
-Configure miss: LIBUSB
-Configure miss: libusb-config
+Configure miss: ttylock.h
+Configure miss: whether skipping some requested camlibs
+Configure miss: whether skipping some requested camlibs
+Configure miss: whether to create internal code docs
+Configure miss: whether to create internal code docs
