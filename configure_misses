@@ -1,72 +1,123 @@
 Configure miss: LIBUSB
 Configure miss: LIBUSB
+Configure miss: LIBUSB
+Configure miss: WSAStartup in -lws2_32
+Configure miss: WSAStartup in -lws2_32
+Configure miss: WSAStartup in -lws2_32
+Configure miss: asm/io.h
 Configure miss: asm/io.h
 Configure miss: asm/io.h
 Configure miss: asm/io.h presence
 Configure miss: asm/io.h presence
+Configure miss: asm/io.h presence
 Configure miss: asm/io.h usability
 Configure miss: asm/io.h usability
+Configure miss: asm/io.h usability
+Configure miss: deprecated --with-camlibdir argument
+Configure miss: deprecated --with-camlibdir argument
+Configure miss: deprecated --with-camlibdir argument
+Configure miss: deprecated --with-iolibdir argument
+Configure miss: deprecated --with-iolibdir argument
+Configure miss: deprecated --with-iolibdir argument
+Configure miss: dev_lock in -llockdev
 Configure miss: dev_lock in -llockdev
 Configure miss: dev_lock in -llockdev
 Configure miss: ioctl-types.h
 Configure miss: ioctl-types.h
+Configure miss: ioctl-types.h
+Configure miss: ioctl-types.h presence
 Configure miss: ioctl-types.h presence
 Configure miss: ioctl-types.h presence
 Configure miss: ioctl-types.h usability
 Configure miss: ioctl-types.h usability
+Configure miss: ioctl-types.h usability
 Configure miss: le32toh in machine/endian.h
 Configure miss: le32toh in machine/endian.h
+Configure miss: le32toh in machine/endian.h
+Configure miss: libjpeg via variables
+Configure miss: libjpeg via variables
+Configure miss: libjpeg via variables
+Configure miss: libusb-config
 Configure miss: libusb-config
 Configure miss: libusb-config
 Configure miss: lockdev.h
 Configure miss: lockdev.h
+Configure miss: lockdev.h
+Configure miss: lockdev.h presence
 Configure miss: lockdev.h presence
 Configure miss: lockdev.h presence
 Configure miss: lockdev.h usability
 Configure miss: lockdev.h usability
+Configure miss: lockdev.h usability
+Configure miss: main in -libs
 Configure miss: main in -libs
 Configure miss: main in -libs
 Configure miss: mnt_mountp in struct mnttab
 Configure miss: mnt_mountp in struct mnttab
-Configure miss: po/Makevars requiring hack
-Configure miss: po/Makevars requiring hack
-Configure miss: po/Makevars requiring hack
-Configure miss: po/Makevars requiring hack
+Configure miss: mnt_mountp in struct mnttab
 Configure miss: regexec in -lregex
 Configure miss: regexec in -lregex
+Configure miss: regexec in -lregex
+Configure miss: rsync
+Configure miss: rsync
+Configure miss: rsync
+Configure miss: sgetty.h
 Configure miss: sgetty.h
 Configure miss: sgetty.h
 Configure miss: sgetty.h presence
 Configure miss: sgetty.h presence
+Configure miss: sgetty.h presence
 Configure miss: sgetty.h usability
 Configure miss: sgetty.h usability
-Configure miss: struct statfs.f_favail
-Configure miss: struct statfs.f_favail
-Configure miss: struct statvfs.f_blocks
-Configure miss: struct statvfs.f_blocks
+Configure miss: sgetty.h usability
+Configure miss: swap32 in machine/endian.h
 Configure miss: swap32 in machine/endian.h
 Configure miss: swap32 in machine/endian.h
 Configure miss: sys/mntent.h
 Configure miss: sys/mntent.h
+Configure miss: sys/mntent.h
+Configure miss: sys/mntent.h presence
 Configure miss: sys/mntent.h presence
 Configure miss: sys/mntent.h presence
 Configure miss: sys/mntent.h usability
 Configure miss: sys/mntent.h usability
+Configure miss: sys/mntent.h usability
+Configure miss: sys/mnttab.h
 Configure miss: sys/mnttab.h
 Configure miss: sys/mnttab.h
 Configure miss: sys/mnttab.h presence
 Configure miss: sys/mnttab.h presence
+Configure miss: sys/mnttab.h presence
+Configure miss: sys/mnttab.h usability
 Configure miss: sys/mnttab.h usability
 Configure miss: sys/mnttab.h usability
 Configure miss: ttold.h
 Configure miss: ttold.h
+Configure miss: ttold.h
+Configure miss: ttold.h presence
 Configure miss: ttold.h presence
 Configure miss: ttold.h presence
 Configure miss: ttold.h usability
 Configure miss: ttold.h usability
+Configure miss: ttold.h usability
 Configure miss: ttylock.h
 Configure miss: ttylock.h
+Configure miss: ttylock.h
+Configure miss: whether CFLAGS can append -Werror=unknown-warning-option
+Configure miss: whether CFLAGS can append -Werror=unknown-warning-option
+Configure miss: whether CFLAGS can append -Werror=unknown-warning-option
+Configure miss: whether CFLAGS can append -Weverything
+Configure miss: whether CFLAGS can append -Weverything
+Configure miss: whether CFLAGS can append -Weverything
+Configure miss: whether CFLAGS can append -Wno-error=documentation-deprecated-sync
+Configure miss: whether CFLAGS can append -Wno-error=documentation-deprecated-sync
+Configure miss: whether CFLAGS can append -Wno-error=documentation-deprecated-sync
+Configure miss: whether CFLAGS can append -Wno-error=reserved-identifier
+Configure miss: whether CFLAGS can append -Wno-error=reserved-identifier
+Configure miss: whether CFLAGS can append -Wno-error=reserved-identifier
 Configure miss: whether skipping some requested camlibs
 Configure miss: whether skipping some requested camlibs
+Configure miss: whether skipping some requested camlibs
+Configure miss: whether to create internal code docs
 Configure miss: whether to create internal code docs
 Configure miss: whether to create internal code docs

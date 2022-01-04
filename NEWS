@@ -1,3 +1,95 @@
+libgphoto2 2.5.28 release
+
+general:
+* OS/2 support removed (broken and unused since at least 2006)
+* remove built-in rpm packaging (use distro packaging instead)
+* remove linux-hotplug rule creation (removed from distros around 2006)
+* remaining text which was iso-8859 is UTF-8 now (except one po file)
+* To override docdir and htmldir, use configure arguments --docdir=
+  and --htmldir= instead of --with-doc-dir= and --with-html-dir=
+* some code cleanups, especially handling of include files and i18n handling
+
+ptp2:
+* wait event
+  * property changes now reported with "'name' to 'value'" added
+  * object info changes now reported as FILE_CHANGED events (e.g. if you change protection flags)
+* Nikon J1: capture fixed
+* Olympus: fixed that wait time was twice as long as required if no events arrived
+* Sigma Fp: added basic beta support for capture, live view and config.
+* Sony:
+  * mark all widgets as read-write again, read-only logic was not 100% correct
+  * speed-ups and fixes to the stepping based config setting
+* Canon EOS
+  * handle newer EOS R series reporting of configs (ISO, Aperture, Shutterspeed)
+  * track UI lock state to avoid device busy reports
+  * fixed "zoom" range settings (for lenses with powered zoom, also for today Powershot)
+* Fuji:
+  * ptpip improvements
+  * bug fixes
+  * some Fuji cameras have now liveview only for webcam (need new firmware)
+* various small fixes and code cleanups
+* New ids:
+  * Sony Alpha-RX1R II, ILCE-7C, ZV-E10, A6600, DSC HX-80, ILCE-7RM3A, ILCE-7RM4A, DSC-A7S III
+  * Nikon Coolpix B500, Zfc
+  * Canon EOS M50m2, Digital IXUS 132
+  * Fuji X-Pro3, GFX 100S, X100V
+
+canon:
+* fixed wait event crashes
+* correctly mark read only config widgets as read-only
+
+pentax:
+* fix PEF raw files for non-K100D
+
+translations:
+* updated german, french, polish, ukrainian
+
+------------------------------------------------------------------------------
+libgphoto2 2.5.27 release
+
+ptp2:
+* report filesizes larger than 4GB correctly
+* download files larger than 4GB
+* empty ptp strings are reported as "", not as NULL
+* report more MTP object properties
+* Nikon
+  * download of files larger than 4GB using getpartial object method
+  * handle new application mode
+  * handle new eventex fetcher on Z series
+  * fixed movie on recent Z series
+  * report liveview and movie prohibit conditions, as errors and also in configuration tree
+  * some Nikon 1 V1 enhancements (the first camera of the 1 series is a bit special)
+* report filesize > 4GB correctly, if possible
+* Canon EOS:
+  * EOS M6 Mark 2 is actually more like a EOS DSLR and fully capable, added some work
+  * Handle OLCINFO for M6 Mark 2 and EOS R5 and new cameras
+  * added current list of autoexposuremode to expose also Fv and friends
+  * Canon Liveview size is encoded in "output" (PC / MOBILE / MOBILE2 variants are the different livesizes), try to expose seperately as "liveviewsize"
+  * decode more options, nickname, eosmoviemode (color/bw), strobofiring, eventmode, flashcharged, oneshotrawon
+  * bugfixes
+* Sony Alpha:
+  * report f-numbers enum with fixed list
+  * fixed liveview taking on a new model
+* Panasonic
+  * implement liveviewsize
+  * implement movie recording ( using --set-config movie=1/0 )
+  * more doc and minor fixes
+* ptp/ip: allow building on Windows
+* New IDS:
+  * Sony DSC-A7S III
+  * Nikon Coolpix P1000, Z6_2, Z7_2 
+  * Olympus E-M1 MII
+  * Canon PowerShot G12, EOS M200
+  * Fuji Fujifilm X-S10
+  * Ricoh Theta V, Z1
+
+canon:
+* more shutterspeed reported
+
+translations:
+* updated french
+
+------------------------------------------------------------------------------
 libgphoto2 2.5.26 release
 
 ptp2:

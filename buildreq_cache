@@ -1,5 +1,4 @@
-2.5.26
-bison
-flex
-libjpeg-turbo-dev
+2.5.28
+doxygen
+graphviz
 libxml2-dev

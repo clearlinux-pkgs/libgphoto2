@@ -5,42 +5,68 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.26
-Release  : 23
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz
-Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.gz.asc
-Summary  : Software for accessing digital cameras
+Version  : 2.5.28
+Release  : 24
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz
+Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz.asc
+Summary  : Library for easy access to digital cameras
 Group    : Development/Tools
-License  : GPL-2.0 LGPL-2.0 LGPL-2.1
+License  : GPL-2.0
 Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-filemap = %{version}-%{release}
 Requires: libgphoto2-lib = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
 Requires: libgphoto2-locales = %{version}-%{release}
-BuildRequires : bison
 BuildRequires : curl-dev
-BuildRequires : flex
+BuildRequires : doxygen
+BuildRequires : gettext
+BuildRequires : graphviz
 BuildRequires : libexif-dev
 BuildRequires : libgd-dev
-BuildRequires : libjpeg-turbo-dev
 BuildRequires : libusb-dev
 BuildRequires : libxml2-dev
+BuildRequires : perl(XML::Parser)
+BuildRequires : sed
 
 %description
-The gPhoto2 project is a universal, free application and library
-framework that lets you download images from several different
-digital camera models, including the newer models with USB
-connections. Note that
-a) for some older camera models you must use the old "gphoto" package.
-b) for USB mass storage models you must use the driver in the kernel
-
-This libgphoto2 package contains only the library that digital 
-camera applications can use.
-
-Frontend like the command-line utility gphoto2 and other (GUI)
-frontends are available separately.
+libgphoto2 2.5.27 release
+ptp2:
+* report filesizes larger than 4GB correctly
+* download files larger than 4GB
+* empty ptp strings are reported as "", not as NULL
+* report more MTP object properties
+* Nikon
+* download of files larger than 4GB using getpartial object method
+* handle new application mode
+* handle new eventex fetcher on Z series
+* fixed movie on recent Z series
+* report liveview and movie prohibit conditions, as errors and also in configuration tree
+* some Nikon 1 V1 enhancements (the first camera of the 1 series is a bit special)
+* report filesize > 4GB correctly, if possible
+* Canon EOS:
+* EOS M6 Mark 2 is actually more like a EOS DSLR and fully capable, added some work
+* Handle OLCINFO for M6 Mark 2 and EOS R5 and new cameras
+* added current list of autoexposuremode to expose also Fv and friends
+* Canon Liveview size is encoded in "output" (PC / MOBILE / MOBILE2 variants are the different livesizes), try to expose seperately as "liveviewsize"
+* decode more options, nickname, eosmoviemode (color/bw), strobofiring, eventmode, flashcharged, oneshotrawon
+* bugfixes
+* Sony Alpha:
+* report f-numbers enum with fixed list
+* fixed liveview taking on a new model
+* Panasonic
+* implement liveviewsize
+* implement movie recording ( using --set-config movie=1/0 )
+* more doc and minor fixes
+* ptp/ip: allow building on Windows
+* New IDS:
+* Sony DSC-A7S III
+* Nikon Coolpix P1000, Z6_2, Z7_2
+* Olympus E-M1 MII
+* Canon PowerShot G12, EOS M200
+* Fuji Fujifilm X-S10
+* Ricoh Theta V, Z1
 
 %package bin
 Summary: bin components for the libgphoto2 package.
@@ -118,10 +144,13 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.26
-cd %{_builddir}/libgphoto2-2.5.26
+%setup -q -n libgphoto2-2.5.28
+cd %{_builddir}/libgphoto2-2.5.28
 pushd ..
-cp -a libgphoto2-2.5.26 buildavx2
+cp -a libgphoto2-2.5.28 buildavx2
+popd
+pushd ..
+cp -a libgphoto2-2.5.28 buildavx512
 popd
 
 %build
@@ -129,7 +158,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1634312264
+export SOURCE_DATE_EPOCH=1641324845
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -143,11 +172,21 @@ make  %{?_smp_mflags}
 
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static
+make  %{?_smp_mflags}
+popd
+unset PKG_CONFIG_PATH
+pushd ../buildavx512/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256 -Wl,-z,x86-64-v4"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256 -Wl,-z,x86-64-v4"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v4"
 %configure --disable-static
 make  %{?_smp_mflags}
 popd
@@ -159,23 +198,25 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 cd ../buildavx2;
 make %{?_smp_mflags} check || :
+cd ../buildavx512;
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1634312264
+export SOURCE_DATE_EPOCH=1641324845
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
-cp %{_builddir}/libgphoto2-2.5.26/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
-cp %{_builddir}/libgphoto2-2.5.26/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
-cp %{_builddir}/libgphoto2-2.5.26/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
-cp %{_builddir}/libgphoto2-2.5.26/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
-cp %{_builddir}/libgphoto2-2.5.26/libgphoto2_port/COPYING.LIB %{buildroot}/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
+cp %{_builddir}/libgphoto2-2.5.28/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
 pushd ../buildavx2/
 %make_install_v3
+popd
+pushd ../buildavx512/
+%make_install_v4
 popd
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -189,12 +230,12 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.26/konica/english
-/usr/share/libgphoto2/2.5.26/konica/french
-/usr/share/libgphoto2/2.5.26/konica/german
-/usr/share/libgphoto2/2.5.26/konica/japanese
-/usr/share/libgphoto2/2.5.26/konica/korean
-/usr/share/libgphoto2/2.5.26/konica/spanish
+/usr/share/libgphoto2/2.5.28/konica/english
+/usr/share/libgphoto2/2.5.28/konica/french
+/usr/share/libgphoto2/2.5.28/konica/german
+/usr/share/libgphoto2/2.5.28/konica/japanese
+/usr/share/libgphoto2/2.5.28/konica/korean
+/usr/share/libgphoto2/2.5.28/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
@@ -238,27 +279,27 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
-/usr/lib64/libgphoto2.so.6.1.0
-/usr/lib64/libgphoto2/2.5.26/ax203.so
-/usr/lib64/libgphoto2/2.5.26/canon.so
-/usr/lib64/libgphoto2/2.5.26/digigr8.so
-/usr/lib64/libgphoto2/2.5.26/dimagev.so
-/usr/lib64/libgphoto2/2.5.26/directory.so
-/usr/lib64/libgphoto2/2.5.26/docupen.so
-/usr/lib64/libgphoto2/2.5.26/jl2005a.so
-/usr/lib64/libgphoto2/2.5.26/jl2005c.so
-/usr/lib64/libgphoto2/2.5.26/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.26/lumix.so
-/usr/lib64/libgphoto2/2.5.26/mars.so
-/usr/lib64/libgphoto2/2.5.26/pentax.so
-/usr/lib64/libgphoto2/2.5.26/ptp2.so
-/usr/lib64/libgphoto2/2.5.26/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.26/sierra.so
-/usr/lib64/libgphoto2/2.5.26/sonix.so
-/usr/lib64/libgphoto2/2.5.26/sq905.so
-/usr/lib64/libgphoto2/2.5.26/st2205.so
-/usr/lib64/libgphoto2/2.5.26/topfield.so
-/usr/lib64/libgphoto2/2.5.26/tp6801.so
+/usr/lib64/libgphoto2.so.6.2.0
+/usr/lib64/libgphoto2/2.5.28/ax203.so
+/usr/lib64/libgphoto2/2.5.28/canon.so
+/usr/lib64/libgphoto2/2.5.28/digigr8.so
+/usr/lib64/libgphoto2/2.5.28/dimagev.so
+/usr/lib64/libgphoto2/2.5.28/directory.so
+/usr/lib64/libgphoto2/2.5.28/docupen.so
+/usr/lib64/libgphoto2/2.5.28/jl2005a.so
+/usr/lib64/libgphoto2/2.5.28/jl2005c.so
+/usr/lib64/libgphoto2/2.5.28/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.28/lumix.so
+/usr/lib64/libgphoto2/2.5.28/mars.so
+/usr/lib64/libgphoto2/2.5.28/pentax.so
+/usr/lib64/libgphoto2/2.5.28/ptp2.so
+/usr/lib64/libgphoto2/2.5.28/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.28/sierra.so
+/usr/lib64/libgphoto2/2.5.28/sonix.so
+/usr/lib64/libgphoto2/2.5.28/sq905.so
+/usr/lib64/libgphoto2/2.5.28/st2205.so
+/usr/lib64/libgphoto2/2.5.28/topfield.so
+/usr/lib64/libgphoto2/2.5.28/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
@@ -271,11 +312,7 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libgphoto2/2cf3b1b4efcd76fbc3c4765a5f464898e8e10cc9
-/usr/share/package-licenses/libgphoto2/455766d2006e9efd362490f01212b552f7221a66
-/usr/share/package-licenses/libgphoto2/6e927fa5859c07b9fdbd0939a4d789430876c5b8
-/usr/share/package-licenses/libgphoto2/d965d10dda6d44f1b1f9cc4933defb537140c774
-/usr/share/package-licenses/libgphoto2/fb704b603b8f465603268a99f3563dcda0c51c8c
+/usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
 
 %files locales -f libgphoto2-6.lang -f libgphoto2_port-12.lang
 %defattr(-,root,root,-)
