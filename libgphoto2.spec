@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.28
-Release  : 26
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz
-Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.28/libgphoto2-2.5.28.tar.xz.asc
+Version  : 2.5.29
+Release  : 27
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
+Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz.asc
 Summary  : Library for easy access to digital cameras
 Group    : Development/Tools
 License  : GPL-2.0
@@ -31,42 +31,15 @@ BuildRequires : perl(XML::Parser)
 BuildRequires : sed
 
 %description
-libgphoto2 2.5.27 release
-ptp2:
-* report filesizes larger than 4GB correctly
-* download files larger than 4GB
-* empty ptp strings are reported as "", not as NULL
-* report more MTP object properties
-* Nikon
-* download of files larger than 4GB using getpartial object method
-* handle new application mode
-* handle new eventex fetcher on Z series
-* fixed movie on recent Z series
-* report liveview and movie prohibit conditions, as errors and also in configuration tree
-* some Nikon 1 V1 enhancements (the first camera of the 1 series is a bit special)
-* report filesize > 4GB correctly, if possible
-* Canon EOS:
-* EOS M6 Mark 2 is actually more like a EOS DSLR and fully capable, added some work
-* Handle OLCINFO for M6 Mark 2 and EOS R5 and new cameras
-* added current list of autoexposuremode to expose also Fv and friends
-* Canon Liveview size is encoded in "output" (PC / MOBILE / MOBILE2 variants are the different livesizes), try to expose seperately as "liveviewsize"
-* decode more options, nickname, eosmoviemode (color/bw), strobofiring, eventmode, flashcharged, oneshotrawon
-* bugfixes
-* Sony Alpha:
-* report f-numbers enum with fixed list
-* fixed liveview taking on a new model
-* Panasonic
-* implement liveviewsize
-* implement movie recording ( using --set-config movie=1/0 )
-* more doc and minor fixes
-* ptp/ip: allow building on Windows
-* New IDS:
-* Sony DSC-A7S III
-* Nikon Coolpix P1000, Z6_2, Z7_2
-* Olympus E-M1 MII
-* Canon PowerShot G12, EOS M200
-* Fuji Fujifilm X-S10
-* Ricoh Theta V, Z1
+libgphoto2 2.5.28 release
+general:
+* OS/2 support removed (broken and unused since at least 2006)
+* remove built-in rpm packaging (use distro packaging instead)
+* remove linux-hotplug rule creation (removed from distros around 2006)
+* remaining text which was iso-8859 is UTF-8 now (except one po file)
+* To override docdir and htmldir, use configure arguments --docdir=
+and --htmldir= instead of --with-doc-dir= and --with-html-dir=
+* some code cleanups, especially handling of include files and i18n handling
 
 %package bin
 Summary: bin components for the libgphoto2 package.
@@ -144,13 +117,13 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.28
-cd %{_builddir}/libgphoto2-2.5.28
+%setup -q -n libgphoto2-2.5.29
+cd %{_builddir}/libgphoto2-2.5.29
 pushd ..
-cp -a libgphoto2-2.5.28 buildavx2
+cp -a libgphoto2-2.5.29 buildavx2
 popd
 pushd ..
-cp -a libgphoto2-2.5.28 buildavx512
+cp -a libgphoto2-2.5.29 buildavx512
 popd
 
 %build
@@ -158,7 +131,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641324845
+export SOURCE_DATE_EPOCH=1646843349
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -202,10 +175,12 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1641324845
+export SOURCE_DATE_EPOCH=1646843349
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
-cp %{_builddir}/libgphoto2-2.5.28/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
+cp %{_builddir}/libgphoto2-2.5.29/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
+cp %{_builddir}/libgphoto2-2.5.29/camlibs/minolta/dimagev/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/4c1641cf299b15191aa58b0f707ce430454d9a56
+cp %{_builddir}/libgphoto2-2.5.29/camlibs/stv0680/LICENCE %{buildroot}/usr/share/package-licenses/libgphoto2/183e5621272b24b44444a6d7afc9452ddbab2900
 pushd ../buildavx2/
 %make_install_v3
 popd
@@ -230,12 +205,12 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.28/konica/english
-/usr/share/libgphoto2/2.5.28/konica/french
-/usr/share/libgphoto2/2.5.28/konica/german
-/usr/share/libgphoto2/2.5.28/konica/japanese
-/usr/share/libgphoto2/2.5.28/konica/korean
-/usr/share/libgphoto2/2.5.28/konica/spanish
+/usr/share/libgphoto2/2.5.29/konica/english
+/usr/share/libgphoto2/2.5.29/konica/french
+/usr/share/libgphoto2/2.5.29/konica/german
+/usr/share/libgphoto2/2.5.29/konica/japanese
+/usr/share/libgphoto2/2.5.29/konica/korean
+/usr/share/libgphoto2/2.5.29/konica/spanish
 /usr/share/libgphoto2_port/0.12.0/vcamera/README.txt
 
 %files dev
@@ -280,26 +255,26 @@ popd
 %defattr(-,root,root,-)
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.2.0
-/usr/lib64/libgphoto2/2.5.28/ax203.so
-/usr/lib64/libgphoto2/2.5.28/canon.so
-/usr/lib64/libgphoto2/2.5.28/digigr8.so
-/usr/lib64/libgphoto2/2.5.28/dimagev.so
-/usr/lib64/libgphoto2/2.5.28/directory.so
-/usr/lib64/libgphoto2/2.5.28/docupen.so
-/usr/lib64/libgphoto2/2.5.28/jl2005a.so
-/usr/lib64/libgphoto2/2.5.28/jl2005c.so
-/usr/lib64/libgphoto2/2.5.28/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.28/lumix.so
-/usr/lib64/libgphoto2/2.5.28/mars.so
-/usr/lib64/libgphoto2/2.5.28/pentax.so
-/usr/lib64/libgphoto2/2.5.28/ptp2.so
-/usr/lib64/libgphoto2/2.5.28/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.28/sierra.so
-/usr/lib64/libgphoto2/2.5.28/sonix.so
-/usr/lib64/libgphoto2/2.5.28/sq905.so
-/usr/lib64/libgphoto2/2.5.28/st2205.so
-/usr/lib64/libgphoto2/2.5.28/topfield.so
-/usr/lib64/libgphoto2/2.5.28/tp6801.so
+/usr/lib64/libgphoto2/2.5.29/ax203.so
+/usr/lib64/libgphoto2/2.5.29/canon.so
+/usr/lib64/libgphoto2/2.5.29/digigr8.so
+/usr/lib64/libgphoto2/2.5.29/dimagev.so
+/usr/lib64/libgphoto2/2.5.29/directory.so
+/usr/lib64/libgphoto2/2.5.29/docupen.so
+/usr/lib64/libgphoto2/2.5.29/jl2005a.so
+/usr/lib64/libgphoto2/2.5.29/jl2005c.so
+/usr/lib64/libgphoto2/2.5.29/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.29/lumix.so
+/usr/lib64/libgphoto2/2.5.29/mars.so
+/usr/lib64/libgphoto2/2.5.29/pentax.so
+/usr/lib64/libgphoto2/2.5.29/ptp2.so
+/usr/lib64/libgphoto2/2.5.29/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.29/sierra.so
+/usr/lib64/libgphoto2/2.5.29/sonix.so
+/usr/lib64/libgphoto2/2.5.29/sq905.so
+/usr/lib64/libgphoto2/2.5.29/st2205.so
+/usr/lib64/libgphoto2/2.5.29/topfield.so
+/usr/lib64/libgphoto2/2.5.29/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
 /usr/lib64/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2_port/0.12.0/disk.so
@@ -312,6 +287,8 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/libgphoto2/183e5621272b24b44444a6d7afc9452ddbab2900
+/usr/share/package-licenses/libgphoto2/4c1641cf299b15191aa58b0f707ce430454d9a56
 /usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
 
 %files locales -f libgphoto2-6.lang -f libgphoto2_port-12.lang
