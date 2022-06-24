@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.29
-Release  : 27
+Release  : 28
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
 Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz.asc
@@ -15,7 +15,6 @@ Group    : Development/Tools
 License  : GPL-2.0
 Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
-Requires: libgphoto2-filemap = %{version}-%{release}
 Requires: libgphoto2-lib = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
 Requires: libgphoto2-locales = %{version}-%{release}
@@ -46,7 +45,6 @@ Summary: bin components for the libgphoto2 package.
 Group: Binaries
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
-Requires: libgphoto2-filemap = %{version}-%{release}
 
 %description bin
 bin components for the libgphoto2 package.
@@ -81,20 +79,11 @@ Group: Documentation
 doc components for the libgphoto2 package.
 
 
-%package filemap
-Summary: filemap components for the libgphoto2 package.
-Group: Default
-
-%description filemap
-filemap components for the libgphoto2 package.
-
-
 %package lib
 Summary: lib components for the libgphoto2 package.
 Group: Libraries
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
-Requires: libgphoto2-filemap = %{version}-%{release}
 
 %description lib
 lib components for the libgphoto2 package.
@@ -131,15 +120,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1646843349
+export SOURCE_DATE_EPOCH=1656046709
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -175,7 +164,7 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1646843349
+export SOURCE_DATE_EPOCH=1656046709
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
 cp %{_builddir}/libgphoto2-2.5.29/camlibs/konica/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/c5b09578f14b2217fb4da494d2eddff60f9991db
@@ -190,11 +179,13 @@ popd
 %make_install
 %find_lang libgphoto2-6
 %find_lang libgphoto2_port-12
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
-/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/print-camera-list
+/usr/lib64/glibc-hwcaps/x86-64-v4/print-camera-list
 /usr/lib64/libgphoto2/print-camera-list
 /usr/lib64/udev/check-ptp-camera
 
@@ -247,12 +238,72 @@ popd
 /usr/share/doc/libgphoto2_port/NEWS
 /usr/share/doc/libgphoto2_port/README
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-libgphoto2
-
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/ax203.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/canon.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/digigr8.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/dimagev.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/directory.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/disk.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/docupen.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/jl2005a.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/jl2005c.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/kodak_dc240.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so.6
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so.6.2.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so.12
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so.12.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/lumix.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/mars.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/pentax.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/ptp2.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/ptpip.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/ricoh_g3.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/serial.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/sierra.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/sonix.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/sq905.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/st2205.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/topfield.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/tp6801.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/usb1.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/usbdiskdirect.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/usbscsi.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/ax203.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/canon.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/digigr8.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/dimagev.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/directory.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/disk.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/docupen.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/jl2005a.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/jl2005c.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/kodak_dc240.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so.6
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so.6.2.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so.12
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so.12.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/lumix.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/mars.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/pentax.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/ptp2.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/ptpip.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/ricoh_g3.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/serial.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/sierra.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/sonix.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/sq905.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/st2205.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/topfield.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/tp6801.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/usb1.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/usbdiskdirect.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/usbscsi.so
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.2.0
 /usr/lib64/libgphoto2/2.5.29/ax203.so
@@ -283,7 +334,6 @@ popd
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
-/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
