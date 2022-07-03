@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.29
-Release  : 29
+Release  : 30
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz
 Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.29/libgphoto2-2.5.29.tar.xz.asc
@@ -15,6 +15,7 @@ Group    : Development/Tools
 License  : GPL-2.0
 Requires: libgphoto2-bin = %{version}-%{release}
 Requires: libgphoto2-data = %{version}-%{release}
+Requires: libgphoto2-filemap = %{version}-%{release}
 Requires: libgphoto2-lib = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
 Requires: libgphoto2-locales = %{version}-%{release}
@@ -71,6 +72,14 @@ Requires: libgphoto2 = %{version}-%{release}
 dev components for the libgphoto2 package.
 
 
+%package filemap
+Summary: filemap components for the octave package.
+Group: Default
+
+%description filemap
+filemap components for the octave package.
+
+
 %package doc
 Summary: doc components for the libgphoto2 package.
 Group: Documentation
@@ -84,6 +93,7 @@ Summary: lib components for the libgphoto2 package.
 Group: Libraries
 Requires: libgphoto2-data = %{version}-%{release}
 Requires: libgphoto2-license = %{version}-%{release}
+Requires: libgphoto2-filemap = %{version}-%{release}
 
 %description lib
 lib components for the libgphoto2 package.
@@ -222,6 +232,10 @@ popd
 /usr/include/gphoto2/gphoto2-version.h
 /usr/include/gphoto2/gphoto2-widget.h
 /usr/include/gphoto2/gphoto2.h
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so
 /usr/lib64/libgphoto2.so
 /usr/lib64/libgphoto2_port.so
 /usr/lib64/pkgconfig/libgphoto2.pc
@@ -236,18 +250,18 @@ popd
 /usr/share/doc/libgphoto2_port/NEWS
 /usr/share/doc/libgphoto2_port/README
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-libgphoto2
+
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so.6
 /usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2.so.6.2.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so.12
 /usr/lib64/glibc-hwcaps/x86-64-v3/libgphoto2_port.so.12.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so
 /usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so.6
 /usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2.so.6.2.0
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so
 /usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so.12
 /usr/lib64/glibc-hwcaps/x86-64-v4/libgphoto2_port.so.12.0.0
 /usr/lib64/libgphoto2.so.6
@@ -280,6 +294,7 @@ popd
 /usr/lib64/libgphoto2_port/0.12.0/usb1.so
 /usr/lib64/libgphoto2_port/0.12.0/usbdiskdirect.so
 /usr/lib64/libgphoto2_port/0.12.0/usbscsi.so
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)
