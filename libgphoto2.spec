@@ -6,7 +6,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.30
-Release  : 35
+Release  : 36
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
 Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz.asc
