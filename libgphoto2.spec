@@ -7,7 +7,7 @@
 #
 Name     : libgphoto2
 Version  : 2.5.30
-Release  : 37
+Release  : 38
 URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
 Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
 Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz.asc
@@ -117,7 +117,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683044130
+export SOURCE_DATE_EPOCH=1685638426
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -149,7 +149,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1683044130
+export SOURCE_DATE_EPOCH=1685638426
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
 cp %{_builddir}/libgphoto2-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/b58e72a0ebf963edaf5a2080c87bd2977d634bec || :
@@ -188,8 +188,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgphoto2.so
-/V3/usr/lib64/libgphoto2_port.so
 /usr/include/gphoto2/gphoto2-abilities-list.h
 /usr/include/gphoto2/gphoto2-camera.h
 /usr/include/gphoto2/gphoto2-context.h
@@ -224,7 +222,6 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgphoto2.so.6
 /V3/usr/lib64/libgphoto2.so.6.3.0
 /V3/usr/lib64/libgphoto2/2.5.30/ax203.so
 /V3/usr/lib64/libgphoto2/2.5.30/canon.so
@@ -246,7 +243,6 @@ popd
 /V3/usr/lib64/libgphoto2/2.5.30/st2205.so
 /V3/usr/lib64/libgphoto2/2.5.30/topfield.so
 /V3/usr/lib64/libgphoto2/2.5.30/tp6801.so
-/V3/usr/lib64/libgphoto2_port.so.12
 /V3/usr/lib64/libgphoto2_port.so.12.1.0
 /V3/usr/lib64/libgphoto2_port/0.12.1/disk.so
 /V3/usr/lib64/libgphoto2_port/0.12.1/ptpip.so
