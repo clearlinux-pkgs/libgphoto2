@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x2209D6902F969C95 (meissner@suse.de)
 #
 Name     : libgphoto2
-Version  : 2.5.30
-Release  : 38
-URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
-Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz
-Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.xz.asc
+Version  : 2.5.31
+Release  : 39
+URL      : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.31/libgphoto2-2.5.31.tar.xz
+Source0  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.31/libgphoto2-2.5.31.tar.xz
+Source1  : https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.31/libgphoto2-2.5.31.tar.xz.asc
 Summary  : Library for easy access to digital cameras
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
@@ -35,10 +35,18 @@ BuildRequires : sed
 %define debug_package %{nil}
 
 %description
-libgphoto2 2.5.29 release
-general:
-* fixes build failures of libgphoto2 frontends and builds using the
-wrong libgphoto2 headers (issue #717)
+libgphoto2 2.5.30 release
+ptp2:
+* Canon: fixed display locking/unlocking after exit
+* generic: avoid potential crash on image addition
+* Sony: Add image information when wait_for_event, some config values added
+* Added IDs:
+* Nikon Zfc, Z9
+* Sony DSC-WX220, Alpha-A7 IV
+* Nikon P950
+* Canon EOS Rebel T8i
+* Fuji Fujifilm X-E4
+* GoPro HERO10 Black
 
 %package bin
 Summary: bin components for the libgphoto2 package.
@@ -106,10 +114,10 @@ locales components for the libgphoto2 package.
 
 
 %prep
-%setup -q -n libgphoto2-2.5.30
-cd %{_builddir}/libgphoto2-2.5.30
+%setup -q -n libgphoto2-2.5.31
+cd %{_builddir}/libgphoto2-2.5.31
 pushd ..
-cp -a libgphoto2-2.5.30 buildavx2
+cp -a libgphoto2-2.5.31 buildavx2
 popd
 
 %build
@@ -117,7 +125,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685638426
+export SOURCE_DATE_EPOCH=1695771762
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -149,7 +157,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1685638426
+export SOURCE_DATE_EPOCH=1695771762
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgphoto2
 cp %{_builddir}/libgphoto2-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libgphoto2/b58e72a0ebf963edaf5a2080c87bd2977d634bec || :
@@ -178,13 +186,13 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/libgphoto2/2.5.30/konica/english
-/usr/share/libgphoto2/2.5.30/konica/french
-/usr/share/libgphoto2/2.5.30/konica/german
-/usr/share/libgphoto2/2.5.30/konica/japanese
-/usr/share/libgphoto2/2.5.30/konica/korean
-/usr/share/libgphoto2/2.5.30/konica/spanish
-/usr/share/libgphoto2_port/0.12.1/vcamera/README.txt
+/usr/share/libgphoto2/2.5.31/konica/english
+/usr/share/libgphoto2/2.5.31/konica/french
+/usr/share/libgphoto2/2.5.31/konica/german
+/usr/share/libgphoto2/2.5.31/konica/japanese
+/usr/share/libgphoto2/2.5.31/konica/korean
+/usr/share/libgphoto2/2.5.31/konica/spanish
+/usr/share/libgphoto2_port/0.12.2/vcamera/README.txt
 
 %files dev
 %defattr(-,root,root,-)
@@ -223,63 +231,63 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /V3/usr/lib64/libgphoto2.so.6.3.0
-/V3/usr/lib64/libgphoto2/2.5.30/ax203.so
-/V3/usr/lib64/libgphoto2/2.5.30/canon.so
-/V3/usr/lib64/libgphoto2/2.5.30/digigr8.so
-/V3/usr/lib64/libgphoto2/2.5.30/dimagev.so
-/V3/usr/lib64/libgphoto2/2.5.30/directory.so
-/V3/usr/lib64/libgphoto2/2.5.30/docupen.so
-/V3/usr/lib64/libgphoto2/2.5.30/jl2005a.so
-/V3/usr/lib64/libgphoto2/2.5.30/jl2005c.so
-/V3/usr/lib64/libgphoto2/2.5.30/kodak_dc240.so
-/V3/usr/lib64/libgphoto2/2.5.30/lumix.so
-/V3/usr/lib64/libgphoto2/2.5.30/mars.so
-/V3/usr/lib64/libgphoto2/2.5.30/pentax.so
-/V3/usr/lib64/libgphoto2/2.5.30/ptp2.so
-/V3/usr/lib64/libgphoto2/2.5.30/ricoh_g3.so
-/V3/usr/lib64/libgphoto2/2.5.30/sierra.so
-/V3/usr/lib64/libgphoto2/2.5.30/sonix.so
-/V3/usr/lib64/libgphoto2/2.5.30/sq905.so
-/V3/usr/lib64/libgphoto2/2.5.30/st2205.so
-/V3/usr/lib64/libgphoto2/2.5.30/topfield.so
-/V3/usr/lib64/libgphoto2/2.5.30/tp6801.so
-/V3/usr/lib64/libgphoto2_port.so.12.1.0
-/V3/usr/lib64/libgphoto2_port/0.12.1/disk.so
-/V3/usr/lib64/libgphoto2_port/0.12.1/ptpip.so
-/V3/usr/lib64/libgphoto2_port/0.12.1/serial.so
-/V3/usr/lib64/libgphoto2_port/0.12.1/usb1.so
-/V3/usr/lib64/libgphoto2_port/0.12.1/usbdiskdirect.so
-/V3/usr/lib64/libgphoto2_port/0.12.1/usbscsi.so
+/V3/usr/lib64/libgphoto2/2.5.31/ax203.so
+/V3/usr/lib64/libgphoto2/2.5.31/canon.so
+/V3/usr/lib64/libgphoto2/2.5.31/digigr8.so
+/V3/usr/lib64/libgphoto2/2.5.31/dimagev.so
+/V3/usr/lib64/libgphoto2/2.5.31/directory.so
+/V3/usr/lib64/libgphoto2/2.5.31/docupen.so
+/V3/usr/lib64/libgphoto2/2.5.31/jl2005a.so
+/V3/usr/lib64/libgphoto2/2.5.31/jl2005c.so
+/V3/usr/lib64/libgphoto2/2.5.31/kodak_dc240.so
+/V3/usr/lib64/libgphoto2/2.5.31/lumix.so
+/V3/usr/lib64/libgphoto2/2.5.31/mars.so
+/V3/usr/lib64/libgphoto2/2.5.31/pentax.so
+/V3/usr/lib64/libgphoto2/2.5.31/ptp2.so
+/V3/usr/lib64/libgphoto2/2.5.31/ricoh_g3.so
+/V3/usr/lib64/libgphoto2/2.5.31/sierra.so
+/V3/usr/lib64/libgphoto2/2.5.31/sonix.so
+/V3/usr/lib64/libgphoto2/2.5.31/sq905.so
+/V3/usr/lib64/libgphoto2/2.5.31/st2205.so
+/V3/usr/lib64/libgphoto2/2.5.31/topfield.so
+/V3/usr/lib64/libgphoto2/2.5.31/tp6801.so
+/V3/usr/lib64/libgphoto2_port.so.12.2.0
+/V3/usr/lib64/libgphoto2_port/0.12.2/disk.so
+/V3/usr/lib64/libgphoto2_port/0.12.2/ptpip.so
+/V3/usr/lib64/libgphoto2_port/0.12.2/serial.so
+/V3/usr/lib64/libgphoto2_port/0.12.2/usb1.so
+/V3/usr/lib64/libgphoto2_port/0.12.2/usbdiskdirect.so
+/V3/usr/lib64/libgphoto2_port/0.12.2/usbscsi.so
 /usr/lib64/libgphoto2.so.6
 /usr/lib64/libgphoto2.so.6.3.0
-/usr/lib64/libgphoto2/2.5.30/ax203.so
-/usr/lib64/libgphoto2/2.5.30/canon.so
-/usr/lib64/libgphoto2/2.5.30/digigr8.so
-/usr/lib64/libgphoto2/2.5.30/dimagev.so
-/usr/lib64/libgphoto2/2.5.30/directory.so
-/usr/lib64/libgphoto2/2.5.30/docupen.so
-/usr/lib64/libgphoto2/2.5.30/jl2005a.so
-/usr/lib64/libgphoto2/2.5.30/jl2005c.so
-/usr/lib64/libgphoto2/2.5.30/kodak_dc240.so
-/usr/lib64/libgphoto2/2.5.30/lumix.so
-/usr/lib64/libgphoto2/2.5.30/mars.so
-/usr/lib64/libgphoto2/2.5.30/pentax.so
-/usr/lib64/libgphoto2/2.5.30/ptp2.so
-/usr/lib64/libgphoto2/2.5.30/ricoh_g3.so
-/usr/lib64/libgphoto2/2.5.30/sierra.so
-/usr/lib64/libgphoto2/2.5.30/sonix.so
-/usr/lib64/libgphoto2/2.5.30/sq905.so
-/usr/lib64/libgphoto2/2.5.30/st2205.so
-/usr/lib64/libgphoto2/2.5.30/topfield.so
-/usr/lib64/libgphoto2/2.5.30/tp6801.so
+/usr/lib64/libgphoto2/2.5.31/ax203.so
+/usr/lib64/libgphoto2/2.5.31/canon.so
+/usr/lib64/libgphoto2/2.5.31/digigr8.so
+/usr/lib64/libgphoto2/2.5.31/dimagev.so
+/usr/lib64/libgphoto2/2.5.31/directory.so
+/usr/lib64/libgphoto2/2.5.31/docupen.so
+/usr/lib64/libgphoto2/2.5.31/jl2005a.so
+/usr/lib64/libgphoto2/2.5.31/jl2005c.so
+/usr/lib64/libgphoto2/2.5.31/kodak_dc240.so
+/usr/lib64/libgphoto2/2.5.31/lumix.so
+/usr/lib64/libgphoto2/2.5.31/mars.so
+/usr/lib64/libgphoto2/2.5.31/pentax.so
+/usr/lib64/libgphoto2/2.5.31/ptp2.so
+/usr/lib64/libgphoto2/2.5.31/ricoh_g3.so
+/usr/lib64/libgphoto2/2.5.31/sierra.so
+/usr/lib64/libgphoto2/2.5.31/sonix.so
+/usr/lib64/libgphoto2/2.5.31/sq905.so
+/usr/lib64/libgphoto2/2.5.31/st2205.so
+/usr/lib64/libgphoto2/2.5.31/topfield.so
+/usr/lib64/libgphoto2/2.5.31/tp6801.so
 /usr/lib64/libgphoto2_port.so.12
-/usr/lib64/libgphoto2_port.so.12.1.0
-/usr/lib64/libgphoto2_port/0.12.1/disk.so
-/usr/lib64/libgphoto2_port/0.12.1/ptpip.so
-/usr/lib64/libgphoto2_port/0.12.1/serial.so
-/usr/lib64/libgphoto2_port/0.12.1/usb1.so
-/usr/lib64/libgphoto2_port/0.12.1/usbdiskdirect.so
-/usr/lib64/libgphoto2_port/0.12.1/usbscsi.so
+/usr/lib64/libgphoto2_port.so.12.2.0
+/usr/lib64/libgphoto2_port/0.12.2/disk.so
+/usr/lib64/libgphoto2_port/0.12.2/ptpip.so
+/usr/lib64/libgphoto2_port/0.12.2/serial.so
+/usr/lib64/libgphoto2_port/0.12.2/usb1.so
+/usr/lib64/libgphoto2_port/0.12.2/usbdiskdirect.so
+/usr/lib64/libgphoto2_port/0.12.2/usbscsi.so
 
 %files license
 %defattr(0644,root,root,0755)
